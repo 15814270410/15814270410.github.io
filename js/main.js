@@ -21,9 +21,10 @@ var gaobili = 320/568;
 // console.log(gaobili)
 var gao= contentdiv.offsetWidth/gaobili;
 // console.log(gao,contentdiv.offsetWidth);
-document.ontouchstart=function(){
-return false;
-}
+
+// document.ontouchstart=function(){
+// return false;
+// }
 /*
  创建飞机类
  */
