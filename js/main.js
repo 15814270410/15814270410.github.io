@@ -46,7 +46,7 @@ function test(){
     stopDrop();
 }
 
-window.ontouchstart = function(e) { e.preventDefault(); };
+// window.ontouchstart = function(e) { e.preventDefault(); };
 /*
  创建飞机类
  */
