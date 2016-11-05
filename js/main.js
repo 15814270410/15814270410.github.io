@@ -13,7 +13,8 @@ var enddiv=document.getElementById("enddiv");
     //获得游戏结束后分数统计界面
 var planscore=document.getElementById("planscore");
     //初始化分数
-    var contentdiv=document.getElementById("contentdiv")
+var contentdiv=document.getElementById("contentdiv");
+var kaishi =document.getElementById("kaishi");
 var scores=0;
 
 //为了算出背景图的真实高度,因为有些移动端会把图片隐藏掉一部分
@@ -21,6 +22,9 @@ var gaobili = 320/568;
 // console.log(gaobili)
 var gao= contentdiv.offsetWidth/gaobili;
 // console.log(gao,contentdiv.offsetWidth);
+
+
+
 
 // function stopDrop(stillCanScroll) {
 // 　　var lastY;
@@ -37,9 +41,28 @@ var gao= contentdiv.offsetWidth/gaobili;
 // 　　　　lastY = y;
 // 　　});
 // }
-document.ontouchstart=function(){
-return false;
-}
+
+
+
+
+
+
+// document.ontouchstart=function(){
+// return false;
+// }
+
+
+
+
+// document.querySelector('body').addEventListener('touchstart', function (ev) {
+// ev.preventDefault();
+// });
+
+
+
+
+
+
 /*
  创建飞机类
  */
