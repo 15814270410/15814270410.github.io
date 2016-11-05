@@ -12,38 +12,16 @@ var suspenddiv=document.getElementById("suspenddiv");
 var enddiv=document.getElementById("enddiv");
     //获得游戏结束后分数统计界面
 var planscore=document.getElementById("planscore");
-    //初始化分数
+   //获取最父级div,用来算比例背景图高度
 var contentdiv=document.getElementById("contentdiv");
-var kaishi =document.getElementById("kaishi");
+var scorediv2=document.getElementById("scorediv2") ;
+//初始化分数
 var scores=0;
 
-//为了算出背景图的真实高度,因为有些移动端会把图片隐藏掉一部分
+//为了算出背景图的真实高度的比例,因为有些移动端会把图片隐藏掉一部分,为了读取到整体高度包括被隐藏的高度,这样背景图滚动时就能无缝
 var gaobili = 320/568;
-// console.log(gaobili)
 var gao= contentdiv.offsetWidth/gaobili;
-// console.log(gao,contentdiv.offsetWidth);
-
-
-
-
-// function stopDrop(stillCanScroll) {
-// 　　var lastY;
-// 　　$("body").off().on('touchstart.stop', function(event) {
-// 　　　　lastY = event.originalEvent.changedTouches[0].clientY;
-// 　　}).on('touchmove.stop', function(event) {
-// 　　　　var y = event.originalEvent.changedTouches[0].clientY;
-// 　　　　var st = $(stillCanScroll).scrollTop();
-// 　　　　// 向上滚动且滚动条位于顶部，屏蔽事件
-// 　　　　if (y > lastY && st < 5) {
-// 　　　　　　event.preventDefault();
-// 　　　　　　return false;
-// 　　　　}
-// 　　　　lastY = y;
-// 　　});
-// }
-
-
-
+//防止移动端上下拖拉窗口
 window.onload=test();//网页加载再执行
 function test(){
      function stopDrop() {
@@ -53,43 +31,22 @@ function test(){
         });
         $(document.body).on('touchmove', function(event) {
             var y = event.originalEvent.changedTouches[0].clientY;
-            console.log(y,lastY)
             var st = $(this).scrollTop(); //滚动条高度  
-            if (y >= lastY && st <= 10) {//如果滚动条高度小于0，可以理解为到顶了，且是下拉情况下，阻止touchmove事件。
-                lastY = y;
-                event.preventDefault();
-                console.log("哈哈",y,lastY)
-            }
-            if (y <= lastY && st <= 10) {
-                console.log("哈");
+            if (y >= lastY && st <= 10) {//如果滚动条高度小于0，可以理解为到顶了，且是下拉情况下，阻止touchmove事件。防止移动端下拖拉窗口
                 lastY = y;
                 event.preventDefault();
             }
-
+            if (y <= lastY && st <= 10) {//防止移动端上拖拉窗口
+                lastY = y;
+                event.preventDefault();
+            }
             lastY = y;
-     
         });
     }
     stopDrop();
 }
 
-
-// document.ontouchstart=function(){
-// return false;
-// }
-
-
-
-
-// document.querySelector('body').addEventListener('touchstart', function (ev) {
-// ev.preventDefault();
-// });
-
-
-
-
-
-
+window.ontouchstart = function(e) { e.preventDefault(); };
 /*
  创建飞机类
  */
@@ -110,9 +67,11 @@ function plan(hp,X,Y,sizeX,sizeY,score,dietime,sudu,boomimage,imagesrc){
 /*
 移动行为
      */
+     //敌机移动速度判断用分数判断
     this.planmove=function(){
         if(scores<=50000){
-            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+"px";
+            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+0+"px";
+
         }
         else if(scores>50000&&scores<=100000){
             this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+1+"px";
@@ -127,7 +86,7 @@ function plan(hp,X,Y,sizeX,sizeY,score,dietime,sudu,boomimage,imagesrc){
             this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+4+"px";
         }
         else{
-            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+5+"px";
+            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+6+"px";
         }
     }
     this.init=function(){
@@ -149,11 +108,7 @@ function bullet(X,Y,sizeX,sizeY,imagesrc){
     this.bulletimage=null;
     this.bulletattach=1;
     this.bulletsizeX=sizeX;
-    this.bulletsizeY=sizeY;
-
-
-
-    
+    this.bulletsizeY=sizeY;   
 //行为
 /*
  移动行为
@@ -204,20 +159,25 @@ function ourplan(X,Y){
 var selfplan=new ourplan(120,485);
 
 //移动事件
+var zanBol = false;//用来判断暂停的
 var ourPlan=document.getElementById('ourplan');
 var yidong=function(){
+   
     var oevent=window.event||arguments[0];
     var chufa=oevent.srcElement||oevent.target;
-    var selfplanX=oevent.touches[0].clientX;
-    var selfplanY=oevent.touches[0].clientY;
-    cunX = selfplanX-selfplan.plansizeX/2; 
-    ourPlan.style.left=selfplanX-selfplan.plansizeX/2+"px";
-    ourPlan.style.top=selfplanY-selfplan.plansizeY/2+"px";
-//    document.getElementsByTagName('img')[0].style.left=selfplanX-selfplan.plansizeX/2+"px";
-//    document.getElementsByTagName('img')[0]..style.top=selfplanY-selfplan.plansizeY/2+"px";
+    
+     if (!zanBol) {//当zanBol = false;执行下面移动功能
+        var selfplanX=oevent.touches[0].clientX;
+        var selfplanY=oevent.touches[0].clientY;
+        cunX = selfplanX-selfplan.plansizeX/2; 
+        ourPlan.style.left=selfplanX-selfplan.plansizeX/2+"px";
+        ourPlan.style.top=selfplanY-selfplan.plansizeY/2+"px";
+    }
+    oevent.preventDefault();//阻止长按飞机出现事件
+    return false;//阻止长按飞机出现事件
 }
+
 //键盘事件
- console.log(ourPlan.style.left) 
  var sudu = 20;var suX = 0;var suY = 0;
     document.onkeydown=function(){
              var e = event || window.event || arguments.callee.caller.arguments[0];
@@ -239,17 +199,17 @@ var yidong=function(){
             ourPlan.style.left=120+suX+"px"
             ourPlan.style.top=458+suY+"px"
          } 
+
 /*
 暂停事件
  */
 var number=0;
 var zanting=function(){
     if(number==0){
-        suspenddiv.style.display="block";
-        // console.log(mainDiv.offsetWidth,suspenddiv.offsetWidth);
-        console.log(contentdiv.offsetWidth)
+        suspenddiv.style.display="block";//继续界面出来
+        scorediv2.style.display="none";//暂停div隐藏
+        zanBol = true;//当zanBol = true;暂停移动功能
         suspenddiv.style.left=contentdiv.offsetWidth/2-suspenddiv.offsetWidth/2+"px";
-        // console.log(suspenddiv.style.left)
         // if(document.removeEventListener){
         //     mainDiv.removeEventListener("mousemove",yidong,true);
         //     bodyobj.removeEventListener("mousemove",bianjie,true);
@@ -258,10 +218,10 @@ var zanting=function(){
         //     mainDiv.detachEvent("onmousemove",yidong);
         //     bodyobj.detachEvent("onmousemove",bianjie);
         // }
-        clearInterval(set);
+        clearInterval(set);//暂停定时器
         number=1;
     }
-    else{
+    else{//再点击变成继续
         suspenddiv.style.display="none";
         if(document.addEventListener){
             mainDiv.addEventListener("touchmove",yidong,true);
@@ -273,15 +233,15 @@ var zanting=function(){
         }
         set=setInterval(start,20);
         number=0;
+        zanBol = false;//移动zanBol = false;移动生效
+        scorediv2.style.display="block";//暂停div显示
     }
 }
 //判断本方飞机是否移出边界,如果移出边界,则取消mousemove事件,反之加上mousemove事件
 var bianjie=function(){
     var oevent=window.event||arguments[0];
     var bodyobjX=oevent.touches[0].clientX;
-
     var bodyobjY=oevent.touches[0].clientY;
-     // console.log(bodyobjX,bodyobjY)
     if(bodyobjX<5||bodyobjX>mainDiv.offsetWidth||bodyobjY<0||bodyobjY>mainDiv.offsetHeight){
         if(document.removeEventListener){
             mainDiv.removeEventListener("touchmove",yidong,true);
@@ -298,6 +258,7 @@ var bianjie=function(){
             mainDiv.attachEvent("touchstart",yidong);
         }
     }
+    
 }
 //暂停界面重新开始事件
 //function chongxinkaishi(){
@@ -333,7 +294,7 @@ else if(document.attachEvent){
     suspenddiv.getElementsByTagName("button")[2].attachEvent("click",jixu,true);
 }
 //初始化隐藏本方飞机
-selfplan.imagenode.style.display="none";
+selfplan.imagenode.style.display="none";//一开始先隐藏自己飞机
 
 /*
 敌机对象数组
@@ -352,6 +313,7 @@ var backgroundPositionY=0;
  */
 function start(){
     mainDiv.style.backgroundPositionY=backgroundPositionY+"px";
+
     backgroundPositionY+=0.5;
     // console.log(mainDiv.offsetHeight)
     if(backgroundPositionY>=gao){
@@ -398,7 +360,6 @@ function start(){
             enemyslen--;
         }
         //当敌机死亡标记为true时，经过一段时间后清除敌机
-        // console.log(enemys[i].planisdie)
         if(enemys[i].planisdie==true){
             enemys[i].plandietimes+=20;
             if(enemys[i].plandietimes==enemys[i].plandietime){
@@ -444,11 +405,8 @@ function start(){
                   if(enemys[j].imagenode.offsetTop+enemys[j].plansizeY>=selfplan.imagenode.offsetTop+40&&enemys[j].imagenode.offsetTop<=selfplan.imagenode.offsetTop-30+selfplan.plansizeY){
                       //碰撞本方飞机，游戏结束，统计分数
                       selfplan.imagenode.src="image/本方飞机爆炸.gif";
-
                       enddiv.style.display="block";
-                      // console.log(mainDiv.offsetWidth,enddiv.offsetWidth);
                       enddiv.style.left=contentdiv.offsetWidth/2-enddiv.offsetWidth/2+"px";
-                      // console.log(enddiv.style.left)
                       planscore.innerHTML=scores;
                       if(document.removeEventListener){
                           mainDiv.removeEventListener("touchmove",yidong,true);
@@ -505,10 +463,6 @@ function begin(){
 //游戏结束后点击继续按钮事件
 function jixu(){
     location.reload(true);
+    zanBol = false;
 }
 
-/*
-    完成界面的初始化
-    敌方小飞机一个
-    我方飞机一个
- */

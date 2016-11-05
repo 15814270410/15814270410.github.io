@@ -1,24 +1,18 @@
 * {
-    -webkit-touch-callout:none;
-    -moz-touch-callout:none;
-    -ms-touch-callout:none;
-      touch-callout:none;
+    -webkit-user-select: none;/*禁用手机浏览器的用户选择功能 */
+    -moz-user-select: none;
+    margin:0;
+    padding: 0;
  }
 html,body{
     height: 100%;
     width: 100%;
     overflow: hidden;
 }
-*{
-    margin:0;
-    padding: 0;
-   
-}
+body{color: #515354;}
 #contentdiv{
-   
     height: 100%;
     width: 100%;
-
 }
 #startdiv{
     width: 100%;
@@ -33,19 +27,18 @@ html,body{
 }
 button{
     outline: none;
+    color: #515354;
 }
 #startdiv button{
-    /*position: absolute;
-    bottom:10%;*/
-   /* 
-    margin-left: auto;
-    margin-right: auto;*/
     margin-top: 90%;
     width: 150px;
     height: 30px;
     border: 1px solid black;
     border-radius: 30px;
     background-color: #c4c9ca;
+}
+#scorediv label{
+    color: #515354;
 }
 #maindiv{
     width: 100%;
@@ -82,27 +75,16 @@ button{
     right:  10px;
     width: 62px;
     height: 30px;
-    /*margin-bottom: 20px;*/
     border: 1px solid black;
     border-radius: 30px;
     background-color: #c4c9ca;
     z-index: 999;
 }
-
-
-
-
 #suspenddiv{
     position: absolute;
-    /*left: 30%;*/
     top: 50%;
-   /*margin-left: auto;
-   margin-right: auto;*/
-   /*margin-top: 50%;*/
     display: none;
     z-index: 2;
-    /*float: left;
-    left: 50%*/
 }
 #suspenddiv button{
     width: 150px;
@@ -113,12 +95,6 @@ button{
     background-color: #c4c9ca;
 }
 #enddiv{
-    /*position: absolute;
-    top: 210px;
-    left: 75px;*/
-   /* margin-left: auto;
-    margin-right: auto;*/
-    /*margin-top: 50%;*/
     position: absolute;
     left: 30%;
     top: 50%;
