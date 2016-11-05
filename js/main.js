@@ -21,7 +21,9 @@ var gaobili = 320/568;
 // console.log(gaobili)
 var gao= contentdiv.offsetWidth/gaobili;
 // console.log(gao,contentdiv.offsetWidth);
-
+document.ontouchstart=function(){
+return false;
+}
 /*
  创建飞机类
  */
@@ -134,7 +136,7 @@ function ourplan(X,Y){
  创建本方飞机
  */
 var selfplan=new ourplan(120,485);
- 
+
 //移动事件
 var ourPlan=document.getElementById('ourplan');
 var yidong=function(){
@@ -421,27 +423,6 @@ function start(){
 /*
 开始游戏按钮点击事件
  */
-// Window.onkeydown=function(event){
-//     var sudu=10;
-//     var oevent=window.event||arguments[0];
-//     switch(oevent.keyCode){
-//         case 37:
-//         bulletimage.style.left=10+"px";
-//         break;
-//         case 38:
-//         bulletimage.style.left=10+"px";
-         
-//         break;
-//         case 39:
-//         bulletimage.style.left=10+"px";
-         
-//         break;
-//         case 40:
-//         bulletimage.style.left=10+"px";
-         
-//         break;
-//     }
-// }
 
 var set;
 function begin(){
