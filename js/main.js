@@ -22,24 +22,24 @@ var gaobili = 320/568;
 var gao= contentdiv.offsetWidth/gaobili;
 // console.log(gao,contentdiv.offsetWidth);
 
-function stopDrop(stillCanScroll) {
-　　var lastY;
-　　$("body").off().on('touchstart.stop', function(event) {
-　　　　lastY = event.originalEvent.changedTouches[0].clientY;
-　　}).on('touchmove.stop', function(event) {
-　　　　var y = event.originalEvent.changedTouches[0].clientY;
-　　　　var st = $(stillCanScroll).scrollTop();
-　　　　// 向上滚动且滚动条位于顶部，屏蔽事件
-　　　　if (y > lastY && st < 5) {
-　　　　　　event.preventDefault();
-　　　　　　return false;
-　　　　}
-　　　　lastY = y;
-　　});
-}
-// document.ontouchstart=function(){
-// return false;
+// function stopDrop(stillCanScroll) {
+// 　　var lastY;
+// 　　$("body").off().on('touchstart.stop', function(event) {
+// 　　　　lastY = event.originalEvent.changedTouches[0].clientY;
+// 　　}).on('touchmove.stop', function(event) {
+// 　　　　var y = event.originalEvent.changedTouches[0].clientY;
+// 　　　　var st = $(stillCanScroll).scrollTop();
+// 　　　　// 向上滚动且滚动条位于顶部，屏蔽事件
+// 　　　　if (y > lastY && st < 5) {
+// 　　　　　　event.preventDefault();
+// 　　　　　　return false;
+// 　　　　}
+// 　　　　lastY = y;
+// 　　});
 // }
+document.ontouchstart=function(){
+return false;
+}
 /*
  创建飞机类
  */
