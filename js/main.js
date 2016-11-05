@@ -44,7 +44,7 @@ var gao= contentdiv.offsetWidth/gaobili;
 
 
 
-window.onload=test();
+window.onload=test();//网页加载再执行
 function test(){
      function stopDrop() {
         var lastY;//最后一次y坐标点
@@ -53,11 +53,19 @@ function test(){
         });
         $(document.body).on('touchmove', function(event) {
             var y = event.originalEvent.changedTouches[0].clientY;
+            console.log(y,lastY)
             var st = $(this).scrollTop(); //滚动条高度  
             if (y >= lastY && st <= 10) {//如果滚动条高度小于0，可以理解为到顶了，且是下拉情况下，阻止touchmove事件。
                 lastY = y;
                 event.preventDefault();
+                console.log("哈哈",y,lastY)
             }
+            if (y <= lastY && st <= 10) {
+                console.log("哈");
+                lastY = y;
+                event.preventDefault();
+            }
+
             lastY = y;
      
         });
