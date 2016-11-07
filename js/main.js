@@ -70,7 +70,7 @@ function plan(hp,X,Y,sizeX,sizeY,score,dietime,sudu,boomimage,imagesrc){
      //敌机移动速度判断用分数判断
     this.planmove=function(){
         if(scores<=500){
-            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+9+"px";
+            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+0+"px";
 
         }
         else if(scores>500&&scores<=800){
@@ -97,17 +97,17 @@ function plan(hp,X,Y,sizeX,sizeY,score,dietime,sudu,boomimage,imagesrc){
         else if(scores>2500&&scores<=2800){
             this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+3+"px";
         }
-        else if(scores>2500&&scores<=3500){
+        else if(scores>2800&&scores<=3000){
             this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+4+"px";
         }
-        else if(scores>2500&&scores<=5000){
+        else if(scores>3000&&scores<=5000){
             this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+5+"px";
         }
-        else if(scores>2500&&scores<=8000){
+        else if(scores>5000&&scores<=8000){
             this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+8+"px";
         }
         else{
-            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+10+"px";
+            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+9+"px";
         }
     }
     this.init=function(){
@@ -135,7 +135,7 @@ function bullet(X,Y,sizeX,sizeY,imagesrc){
  移动行为
  */
     this.bulletmove=function(){
-        this.bulletimage.style.top=this.bulletimage.offsetTop-50+"px";
+        this.bulletimage.style.top=this.bulletimage.offsetTop-10+"px";
     }
     this.init=function(){
         this.bulletimage=document.createElement("img");
@@ -428,6 +428,9 @@ function start(){
                       selfplan.imagenode.src="image/本方飞机爆炸.gif";
                       enddiv.style.display="block";
                       enddiv.style.left=contentdiv.offsetWidth/2-enddiv.offsetWidth/2+"px";
+                      // var zuigao = [];// 创建数组
+                      // zuigao.push(scores);
+                      // console.log(zuigao);
                       planscore.innerHTML=scores;
                       if(document.removeEventListener){
                           mainDiv.removeEventListener("touchmove",yidong,true);
