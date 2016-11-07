@@ -69,24 +69,45 @@ function plan(hp,X,Y,sizeX,sizeY,score,dietime,sudu,boomimage,imagesrc){
      */
      //敌机移动速度判断用分数判断
     this.planmove=function(){
-        if(scores<=50000){
-            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+0+"px";
+        if(scores<=500){
+            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+9+"px";
 
         }
-        else if(scores>50000&&scores<=100000){
-            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+1+"px";
+        else if(scores>500&&scores<=800){
+            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+0.3+"px";
         }
-        else if(scores>100000&&scores<=150000){
-            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+2+"px";
+        else if(scores>800&&scores<=1100){
+            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+0.6+"px";
         }
-        else if(scores>150000&&scores<=200000){
+        else if(scores>1100&&scores<=1300){
+            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+0.9+"px";
+        }
+        else if(scores>1300&&scores<=1600){
+            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+1.2+"px";
+        }
+        else if(scores>1600&&scores<=1900){
+            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+1.5+"px";
+        }
+        else if(scores>1900&&scores<=2200){
+            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+1.9+"px";
+        }
+        else if(scores>2200&&scores<=2500){
+            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+2.3+"px";
+        }
+        else if(scores>2500&&scores<=2800){
             this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+3+"px";
         }
-        else if(scores>200000&&scores<=300000){
+        else if(scores>2500&&scores<=3500){
             this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+4+"px";
         }
+        else if(scores>2500&&scores<=5000){
+            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+5+"px";
+        }
+        else if(scores>2500&&scores<=8000){
+            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+8+"px";
+        }
         else{
-            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+6+"px";
+            this.imagenode.style.top=this.imagenode.offsetTop+this.plansudu+10+"px";
         }
     }
     this.init=function(){
@@ -328,16 +349,16 @@ function start(){
         mark1++;
         //中飞机
         if(mark1%5==0){
-            enemys.push(new enemy(6,25,mainDiv.offsetWidth-70,46,60,5000,360,random(1,3),"image/中飞机爆炸.gif","image/enemy3_fly_1.png"));
+            enemys.push(new enemy(6,25,mainDiv.offsetWidth-70,46,60,50,360,random(1,3),"image/中飞机爆炸.gif","image/enemy3_fly_1.png"));
         }
         //大飞机
         if(mark1==20){
-            enemys.push(new enemy(12,57,mainDiv.offsetWidth-110,110,164,30000,540,1,"image/大飞机爆炸.gif","image/enemy2_fly_1.png"));
+            enemys.push(new enemy(12,57,mainDiv.offsetWidth-110,110,164,3,540,1,"image/大飞机爆炸.gif","image/enemy2_fly_1.png"));
             mark1=0;
         }
         //小飞机
         else{
-            enemys.push(new enemy(1,19,mainDiv.offsetWidth-40,34,24,1000,360,random(1,4),"image/小飞机爆炸.gif","image/enemy1_fly_1.png"));
+            enemys.push(new enemy(1,19,mainDiv.offsetWidth-40,34,24,10,360,random(1,4),"image/小飞机爆炸.gif","image/enemy1_fly_1.png"));
         }
         mark=0;
     }
