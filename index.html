@@ -1,50 +1,41 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="utf-8">
-<title>HTML5 调用手机摄像头</title>
-<style type="text/css">
-</style>
-<script>     
-window.addEventListener("DOMContentLoaded", function() {
-var canvas = document.getElementById("canvas"),
-context = canvas.getContext("2d"),
-video = document.getElementById("video"),
-videoObj = { "video": true },
-errBack = function(error) {
-console.log("Video capture error: ", error.code); 
-};
-
-
-if(navigator.getUserMedia) { // Standard
-navigator.getUserMedia(videoObj, function(stream) {
-video.src = stream;
-video.play();
-}, errBack);
-} else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
-navigator.webkitGetUserMedia(videoObj, function(stream){
-video.src = window.webkitURL.createObjectURL(stream);
-video.play();
-}, errBack);
-}
-else if(navigator.mozGetUserMedia) { // Firefox-prefixed
-navigator.mozGetUserMedia(videoObj, function(stream){
-video.src = window.URL.createObjectURL(stream);
-video.play();
-}, errBack);
-}
-// 拍照
-document.getElementById("snap").addEventListener("click", function() {
-context.drawImage(video, 0, 0, 640, 480);
-});
-}, false);
-
-
-</script> 
+    <title>微信飞机lucas</title>
+    <meta http-equiv="content" content="text/html" charset="utf-8"/>
+    <meta name="x5-fullscreen" content="true">
+    <meta name="full-screen" content="yes">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
 </head>
+
 <body>
-<video id="video" width="640" height="480" autoplay></video>
-<button id="snap" style="font-size: 40px;" >拍照</button>
-<canvas id="canvas" width="640" height="640"></canvas>
+<div id="contentdiv">
+    <div id="startdiv">
+        <button onclick="begin()">开始游戏</button>
+    </div>
+    <div id="maindiv">
+        <div id="scorediv">
+            <label>分数：</label>
+            <label id="label">0</label>
+            
+        </div>
+        <div id="scorediv2">
+            <button onclick="zanting()">暂停</button>
+        </div>
+        <div id="suspenddiv">
+            <button>继续</button><br/>
+            <button onclick="jixu()">重新开始</button><br/>
+            <button>回到主页</button>
+        </div>
+        <div id="enddiv">
+            <p class="plantext">飞机大战分数</p>
+            <p id="planscore">0</p>
+            <div><button onclick="jixu()">重新游戏</button></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
 </body>
-</html> 
+</html>
