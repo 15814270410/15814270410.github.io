@@ -46,7 +46,7 @@ var gao= contentdiv.offsetWidth/gaobili;
 //     stopDrop();
 // }
 
-window.ontouchstart = function(e) { event.preventDefault(); };
+window.ontouchstart = function(event) { event.preventDefault(); };
 /*
  创建飞机类
  */
