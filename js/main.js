@@ -34,11 +34,11 @@ function test(){
             var st = $(this).scrollTop(); //滚动条高度  
             if (y >= lastY && st <= 10) {//如果滚动条高度小于0，可以理解为到顶了，且是下拉情况下，阻止touchmove事件。防止移动端下拖拉窗口
                 lastY = y;
-                event.preventDefault();
+                // event.preventDefault();
             }
             if (y <= lastY && st <= 10) {//防止移动端上拖拉窗口
                 lastY = y;
-                event.preventDefault();
+                // event.preventDefault();
             }
             lastY = y;
         });
