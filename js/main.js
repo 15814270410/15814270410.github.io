@@ -46,10 +46,10 @@ var gao= contentdiv.offsetWidth/gaobili;
 //     stopDrop();
 // }
 
-// window.onload=test();
-// function test(){ 
-// window.ontouchstart = function(event) { event.preventDefault(); };
-// }
+window.onload=test();
+function test(){ 
+window.ontouchstart = function(event) { event.preventDefault(); };
+}
 /*
  创建飞机类
  */
