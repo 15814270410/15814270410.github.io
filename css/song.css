@@ -2,7 +2,7 @@ html{
 	font-size: calc(100vw/3.2);
 }
 #page1{
-	background: url(../img/all_page_bg.jpg);	
+	background: url(../img/page_bg.jpg);	
 	height: 100%;
 }
 #head{
@@ -54,7 +54,7 @@ html{
 	-webkit-animation-iteration-count: infinite;
 }
 #page3{
-	background: url(../img/all_page_bg.jpg);
+	background: url(../img/page_bg.jpg);
 }
 #test_head1{
 	background: url(../img/head1.png);
@@ -159,7 +159,7 @@ html{
 	
 }
 #page2{
-	background: url(../img/page2_bg.png);
+	background: url(../img/page2_bg.jpg);
 }
 #hand{
 	background: url(../img/p2_shou.png);
@@ -266,13 +266,13 @@ html{
 	background-size: 100% 100%;
 }
 #page4{
-	background: url(../img/all_page_bg.jpg);
+	background: url(../img/page_bg.jpg);
 }
 #page5{
-	background: url(../img/all_page_bg.jpg);
+	background: url(../img/page_bg.jpg);
 }
 #page6{
-	background: url(../img/all_page_bg.jpg);
+	background: url(../img/page_bg.jpg);
 }
 .scroll_text{
 	position: absolute;
@@ -333,7 +333,7 @@ html{
 .mask img{
 	width: 80%;
 	position: absolute;
-	right: 0;
+	right: 10%;
 	top: 4%;
 }
 .copyright{

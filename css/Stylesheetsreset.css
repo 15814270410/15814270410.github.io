@@ -17,7 +17,7 @@ html,body{
 	user-select: none;
 	-webkit-user-select: none;
 	font-family: 'MicrosoftYaHei', '微软雅黑', 'STHeitiSC';
-	font-size: calc(100vw/32);
+	font-size: calc(100vw/3.2);
 }
 .fl{float: left;}
 .fr{float: right;}
