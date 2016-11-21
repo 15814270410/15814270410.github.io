@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head> 
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+	<title>宋仲基</title>
+	<link rel="stylesheet" type="text/css" href="css/animate.min.css"><!-- 引进其他动画效果动画库 -->
+	<link rel="stylesheet" type="text/css" href="css/main.css"><!-- 引进样式 -->
+	<link rel="stylesheet" type="text/css" href="css/animation2.css"><!-- 引进头像动画效果 -->
+	<script type="text/javascript">//这个js文件是为了让html的font-size按屏幕比例来获取让css样式里rem单位能够统一
+	(function(html){
+		change();
+		function change(){
+			var w = html.clientWidth;
+			if(w<250){w=250}
+			if(w>960){w=960}
+			var size = 100*(w/375).toFixed(2);
+			html.style.fontSize = size+"px";	
+			
+			
+		}
+		window.addEventListener('resize',function(){
+			change();
+		})
+	})(document.documentElement)
+	window.onload=test();
+	function test(){ 
+	window.ontouchstart = function(event) { event.preventDefault(); };
+	}
+</script>
+</head>
+<body>
+<div class="main">
+	<div class="jiazai"><!-- 加载时的画面 -->
+		<div class="bfb">0%</div>
+		<div class="quan"></div>
+	</div>
+	<div class="jiemian1"><!-- 界面一 -->
+		<p>ZXC传媒</p>
+		<div class="wenzi1"></div>
+		<div class="xin"></div>
+		<div class="tou1"></div>
+		<div class="tou2"></div>
+		<div class="tou3"></div>
+		<div class="tou4"></div>
+		<div class="song"></div>
+		<div class="anniu"></div>
+		<div class="zshi"></div>
+		<div class="face"></div>
+	</div>
+	<div class="jiemian2"><!-- 界面二 -->
+		<p>把家具移到心仪的位置</p>
+		<p>ZXC传媒</p>
+		<div class="fang"></div>
+		<div class="sofa animated bounceInDown"></div><!-- 这里类名animated bounceInDown调用了animate.min.css动画库 -->
+		<div class="shelf animated bounceInLeft"></div><!-- 这里类名animated bounceInDown调用了animate.min.css动画库 -->
+		<div class="lamp animated bounceInRight"></div><!-- 这里类名animated bounceInDown调用了animate.min.css动画库 -->
+		<div class="shou"></div>
+	</div>
+	<div class="jiemian3" ><!-- 界面三 -->
+		<p class="jieP">ZXC传媒</p>
+		<div class="tou1"></div>
+		<div class="tou2"></div>
+		<div class="tou3"></div>
+		<div class="wenzi2"></div>
+		<div class="timu">
+			<p></p>
+			<div></div><span>s</span>
+			<div></div><span>s</span>
+			<div></div><span>s</span>
+		</div>
+		<div class="btn"></div>
+	</div>
+	<div class="jiemian4 animated bounceInDown"><!-- 界面四 --><!-- 这里类名animated bounceInDown调用了animate.min.css动画库 -->
+		<div class="leftx"></div>
+		<div class="rightx"></div>
+		<span class="fen"></span>
+		<p></p>
+		<div class="jiejue"></div>
+		<div class="fx"></div>
+
+	</div>
+	<div class="fxtu animated flip"></div><!-- 最后提示朋友圈画面 -->
+	<audio src="music/bg.mp3" ></audio><!-- 背景音乐 -->
+</div>
+</body>
+<script type="text/javascript" src="js/main.js"></script>
+</html>
