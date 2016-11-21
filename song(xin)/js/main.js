@@ -5,20 +5,16 @@ var jiemian1 = document.querySelector(".jiemian1");
 var jiemian2 = document.querySelector(".jiemian2");
 var anniu1 = document.querySelector(".anniu");
 var music = document.querySelector("audio");
-
 var fang = document.querySelector(".fang");
 var lamp = document.querySelector(".lamp");
 var shelf = document.querySelector(".shelf");
 var sofa = document.querySelector(".sofa");
-
 var jiemian3 = document.querySelector(".jiemian3");
 var shou = document.querySelector(".shou"); 
 var btn = document.querySelector(".btn"); 
-
 var tmp = document.querySelector(".timu p");
 var tmdiv = document.querySelectorAll(".timu div");
 var tmspan = document.querySelectorAll(".timu span");
-
 var jiemian4 = document.querySelector(".jiemian4");
 var defen = document.querySelector(".fen");
 var pj = document.querySelector(".jiemian4 p");
@@ -30,11 +26,11 @@ move(shelf);
 move(sofa);
 
 //加载完成函数
-var arrSrc = ["all_page_bg.jpg","header.png","heart.png","heart1.png","face.png","demond.png","head1.png","head2.png","head3.png","head4.png","song.png","lamp.png","next_btn.jpg","p2_shou.png","page1_btn.png","page2_bg.jpg","scroll_btn.png","share.png","shelf_bg.png","shelf.png","xuan.png","sofa.png","test_text.jpg","zaogao.png","bg.mp3"];//放进所有图片和音乐
+var arrSrc = ["all_page_bg.jpg","header.png","heart.png","heart1.png","face.png","demond.png","head1.png","head2.png","head3.png","head4.png","song.png","lamp.png","next_btn.jpg","p2_shou.png","page1_btn.png","page2_bg.jpg","scroll_btn.png","share.png","shelf_bg.png","shelf.png","xuan.png","sofa.png","test_text.jpg","zaogao.png"];//放进所有图片和音乐
 var index=0;
 // var arrImg=[]
 for(var i=0;i<arrSrc.length;i++){//按上面所以文件的长度来下标循环,把文件一一加载出来
-	if(i<arrSrc.length-1){//加载图片
+	if(i<arrSrc.length){//加载图片
 		var img=new Image();
 		img.src = "img/" + arrSrc[i];//加载图片
 		// arrImg.push(img.src);
@@ -45,18 +41,19 @@ for(var i=0;i<arrSrc.length;i++){//按上面所以文件的长度来下标循环
 				begin();//加载完运行下面要执行的下一页函数
 			}
 		}
-	}else{//加载音乐
-		var sound = new Audio();
-
-		sound.src = "music/" +arrSrc[i];//加载音乐
-		sound.onloadeddata = function(){
-			index++;
-			jindu();//实时运行下面要执行的进度条函数
-			if(index==arrSrc.length){
-				begin();//加载完运行下面要执行的下一页函数
-			}
-		}
 	}
+	// else{//加载音乐
+	// 	var sound = new Audio();
+
+	// 	sound.src = "music/" +arrSrc[i];//加载音乐
+	// 	sound.onloadeddata = function(){
+	// 		index++;
+	// 		jindu();//实时运行下面要执行的进度条函数
+	// 		if(index==arrSrc.length){
+	// 			begin();//加载完运行下面要执行的下一页函数
+	// 		}
+	// 	}
+	// }
 	
 }
 //进度条
@@ -227,8 +224,10 @@ function ping(){
 	var k = 2;
 	if(fen<6){
 		k=0;
+		pj.setAttribute("class","di");//改变p标签类名
 	}else if(fen<8){
 		k=1;
+		pj.setAttribute("class","di");//改变p标签类名
 	}
 	defen.innerHTML="得分："+fen;
 	pj.innerHTML = pingjia[k];

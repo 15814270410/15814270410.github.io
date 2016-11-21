@@ -2,13 +2,11 @@
 	margin:0;
 	padding:0;
 } 
-html{
+html,body{
 	height:100%;
 
 }
-body{
-	height:100%;
-}
+
 .jiazai{
 	position: relative;
 	width: 1.2rem;
@@ -19,7 +17,6 @@ body{
 	border-radius: 50%;
 	text-align:center;
 	box-shadow:3px 3px 30px white;
-	/*display: none;*/
 }
 .quan{
 	position: absolute;
@@ -163,21 +160,21 @@ body{
 	width:.5rem;
 	height:20%;
 	left:2.8rem;
-	top:74%;
+	top:73%;
 	background-image:url(../img/lamp.png);
 }
 .shelf{
 	width:.7rem;
 	height:12%;
 	left:.4rem;
-	top:82%;
+	top:81%;
 	background-image:url(../img/shelf.png);
 }
 .sofa{
 	width:1.7rem;
 	height:13%;
 	left:1.1rem;
-	top:81%;
+	top:80%;
 	background-image:url(../img/sofa.png);
 }
 .shou{
@@ -189,12 +186,6 @@ body{
 	-webkit-animation: donghua3 1.5s infinite;
 	animation: donghua3 1.5s infinite;
 }
-/*.jiemian2 p{
-	position: absolute;
-	font-size: 0.13rem;
-	left:0.9rem;
-	bottom: 3%;
-}*/
 .jiemian2 p:nth-child(1){
 	position: absolute;
 	left: 28%;
@@ -329,6 +320,14 @@ body{
 	max-width: 2.4rem;
 	line-height: 180%;
 }
+.jiemian4 .di{
+	text-indent:2em;
+	left:0.18rem;
+	top:12%;
+	font-size: .17rem;
+	max-width: 2.4rem;
+	line-height: 180%;
+}
 .jiejue,.fx{
 	animation: none;
 	-webkit-animation: none;
@@ -339,7 +338,7 @@ body{
 	background-image:url("../img/scroll_btn.png");
 }
 .fx{
-	height:11.5%;
+	height:11%;
 	left:1.5rem;
 	background-image:url("../img/zaogao.png");
 }
