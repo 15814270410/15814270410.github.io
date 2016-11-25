@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta charset="utf-8">
+	<title>微信打飞机</title>
+	<style type="text/css">
+		html,body{
+			height: 100%;
+			width: 100%;
+		}
+		body{
+			margin:0;
+			padding: 0;
+			position: relative;
+		}
+		canvas{
+			width:100%;
+			height:100%;
+			max-width:800px; 
+			display:block;
+		}
+		.ks{
+			border:2px solid #949494;
+			border-radius: 8px;
+			position: absolute;
+			padding: 2px 10px;
+			bottom:10%;
+			color:#949494;
+			font-size: 2em;
+			/*left:50%;*/
+			display: none;
+		}
+		.fen{
+			position: absolute;
+			color:#949494;
+			left: 0;
+			top:5px;
+			font-size: 1.5em;
+		}
+	</style>
+</head>
+<body>
+<canvas ></canvas>
+<div class="ks">开始游戏</div>
+<div class="fen"></div>
+</body>
+<script type="text/javascript">
+	var canvas=document.querySelector("canvas");
+	var fen=document.querySelector(".fen");
+	// canvas.width = 400;
+	canvas.height = 568;
+	var ctx=canvas.getContext("2d");
+	
+
+	var ks=document.querySelector(".ks");
+	var yunxing=false;
+	
+	var c2=document.createElement("canvas");
+	var ctx2=c2.getContext("2d");
+	kg();
+	function kg(){
+		sWidth=canvas.offsetWidth;
+		sHeight=canvas.offsetHeight;
+		c2.width=sWidth;
+		c2.height=sHeight;
+		// 不同分辨率下的比例
+		wb=300/sWidth;
+		hb=568/sHeight;
+		hh=sHeight-568;
+	}
+	window.onresize=function(){
+		kg();
+	}
+
+	if(sWidth>700){
+		fen.style.fontSize="2.5em";
+		ks.style.fontSize="3em"
+		console.log("dd")
+	}
+	var flyNames=[];//玩家名
+	var flyFen=[];//分数；
+	var wjs=0;
+	var bombom=false;
+	flyFen[wjs]=0;
+	var touchB=true;
+	// 开始按钮
+	ks.addEventListener("touchstart",function(e){
+		ks.style.background="#f8fbfd";
+	})
+	ks.addEventListener("touchend",function(){
+		ks.style.background="";
+		ks.style.display="none";
+		if(!yunxing){	
+			yunxing=true;
+			zanting=false;
+			flyFen[wjs]=0;
+			zNum=2;
+			fjB();
+			zdB();
+			nandu1();
+			djB();
+			daojuB();
+			run();
+			touchB=false;
+		}else{zanting=false;}
+	})
+	// 手指触摸
+	canvas.addEventListener("touchstart",function(e){
+		if(touchB){return}
+		dx=e.touches[0].clientX*wb;
+		dy=e.touches[0].clientY*hb;
+			if(e.touches[1]){
+				dx2=e.touches[1].clientX*wb;
+				dy2=e.touches[1].clientY*hb;
+			}
+		if(zNum>0){
+			//炸弹 5,525,42,36
+			if((dx>=5&&dx<=47&&dy>525&&dy<=561)||(e.touches[1]&&dx2>=5&&dx2<=47&&dy2>525&&dy2<=561)){
+				zNum--;
+				if(zNum<0){zNum=0;}
+				bombom=true;
+			}
+		}
+		// 判断是否在飞机上
+		if(fj.w&&dx>(fj.l)&&dx<(fj.l+fj.w)&&dy>(fj.t)&&(dy<fj.t+fj.h)){
+			dx-=fj.l;
+			dy-=fj.t;
+			// 添加绑定，手指滑动
+			canvas.addEventListener("touchmove",fly,false);		
+		}
+		e.preventDefault(); 
+		return false
+	})
+	// 手指滑动，控制飞机
+	function fly(e){
+		fj.l=e.touches[0].clientX*wb-dx;
+		fj.t=e.touches[0].clientY*hb-dy;	
+	}
+	canvas.addEventListener("touchend",function(){
+		// 移出手指滑动的绑定
+		canvas.removeEventListener("touchmove",fly,false);
+	})
+	var arcImg=["background_2.png","1.png","loading0.png","loading1.png","loading2.png","loading3.png","loading01.png","loading02.png","hero_fly_1.png","hero_fly_2.png","hero_blowup_1.png","hero_blowup_2.png","hero_blowup_3.png","hero_blowup_4.png","bullet1.png","bullet2.png","bomb.png","enemy4_fly_1.png","enemy5_fly_1.png","enemy1_fly_1.png","enemy1_blowup_1.png","enemy1_blowup_2.png","enemy1_blowup_3.png","enemy1_blowup_4.png","enemy3_fly_1.png","enemy3_hit_1.png","enemy3_blowup_1.png","enemy3_blowup_2.png","enemy3_blowup_3.png","enemy3_blowup_4.png","enemy2_fly_1.png","enemy2_fly_2.png","enemy2_hit_1.png","enemy2_blowup_1.png","enemy2_blowup_2.png","enemy2_blowup_3.png","enemy2_blowup_4.png","enemy2_blowup_5.png","enemy2_blowup_6.png","enemy2_blowup_7.png","enemy5_fly_x.png"];//0背景，1，微信 8~13控制的飞机，14 15 子弹，16 炸弹 17炸弹道具，18子弹道具 19~23小型敌机 24~29中型敌机 30~39 大型飞机 40回血
+	var arrImg=[];
+	var tuIndex=0;
+	var bt=0;
+	var vv=0;
+	var zanting=false;
+	var ff=0;
+	for(var i=0;i<arcImg.length;i++){
+		var img=new Image();
+		img.src="images/"+arcImg[i];
+		arrImg.push(img);		
+		// 图片加载
+		img.onload = function(){
+			tuIndex++;
+			if(tuIndex>=arrImg.length){
+				ks.style.display="block";
+				ks.style.left=sWidth/2-ks.offsetWidth/2+"px";	
+			}
+			if(tuIndex>=2){
+				ctx.clearRect(0,0,sWidth,sHeight);
+				bg();
+				wx();
+				jindu();
+			}
+		}
+	}
+	// 背景
+	function bg(){
+		ctx.beginPath();
+		// console.log(sWidth,sHeight)
+		ctx.drawImage(arrImg[0],0,0,320,568-bt,0,bt/hb,sWidth,sHeight-bt/hb);
+		ctx.drawImage(arrImg[0],0,568-bt,320,bt,0,0,sWidth,bt/hb);
+		ctx.closePath();
+	}
+	// 游戏名
+	function wx(){
+		ctx.beginPath();
+		ctx.drawImage(arrImg[1],0,0,310,300);
+		ctx.closePath();
+	}
+	// 进度；
+	function jindu(){
+		ctx.beginPath();
+		ctx.fillStyle="#403e3e";
+		ctx.fillRect(101,300,tuIndex/arrImg.length*100,20);
+		ctx.strokeStyle="#949494";
+		ctx.strokeRect(100,300,100,20);
+		ctx.fillStyle="#4c74e4";
+		ctx.fillText(Math.round(tuIndex/arrImg.length*10000)/100+"%",140,315)
+		ctx.closePath();
+	}
+	// 飞机参数
+	function fjB(){
+		fj={tu:8,l:110,t:480,w:66,h:80,b:false,hp:10,hps:10}
+	}
+	// 飞机
+	function feiji(ctx){
+		ctx.beginPath();
+		ctx.drawImage(arrImg[fj.tu],0,0,fj.w,fj.h,fj.l,fj.t,fj.w,fj.h);
+		// fj.b 判断飞机是否炸毁
+		if(ff>=5){
+			if(fj.b){
+				fj.tu++;
+				bombom=true;
+				if(fj.tu>13){					
+					zanting=true;
+					fj.tu=8
+				}
+			}else{
+				fj.tu=fj.tu==8?9:8;	
+			}
+			ff=0;
+		}
+		ff++;	
+		ctx.closePath();
+	}
+	// 飞行边界
+	function flyBj(){
+		if(fj.l<-30){fj.l=-30}
+		if(fj.l>263){fj.l=263}
+		if(fj.t<0){fj.t=0}
+		if(fj.t>503){fj.t=503}
+	}
+	// 子弹
+	var zd=[];
+	// zdB();
+	function zdB(){
+		zd[0]={tu:14,l:fj.l+fj.w/2-2,t:fj.t-14,w:6,h:14};
+		dd=0;//子弹总数
+		length=0;
+		lbol=true;
+		zdz=false;//子弹增强	
+	}	
+	var zzdd=[0,400];//子弹增强的有效事件
+	function zidan(ctx){		
+		for(var i=0;i<=length;i++){
+			// 子弹是否打中敌机
+			dazhong(i,djm);
+			dazhong(i,djz);
+			dazhong(i,djb);
+			function dazhong(i,dj){
+				// 屏幕上显示的子弹
+				if(zd[i].t>0&&zd[i].l>0){
+					// 屏幕上的敌机
+					for(var j=0;j<=dj.x.length-1;j++){
+						// 打中条件
+						if(!dj.c[dj.x[j]].b&&zd[i].l>(dj.c[dj.x[j]].l-zd[i].w)&&zd[i].l<(dj.c[dj.x[j]].l+dj.c[dj.x[j]].w)&&zd[i].t>(dj.c[dj.x[j]].t-zd[i].h)&&zd[i].t<(dj.c[dj.x[j]].t+dj.c[dj.x[j]].h*0.7)){
+							zd[i].l=-100;//子弹消耗
+							if(zdzq){//打中减血
+								dj.c[j].xue-=2;
+								flyFen[wjs]+=dj.fen*2;
+							}else{
+								dj.c[j].xue--;
+								flyFen[wjs]+=dj.fen;
+							}
+							if(dj.c[j].xue<=0){
+								dj.c[dj.x[j]].b=true;//炸毁
+								dj.c[j].xue=dj.xue;//重置血量
+							}
+							break;
+						}	
+					}
+				}
+			}	
+			ctx.beginPath();
+			ctx.drawImage(arrImg[zd[i].tu],0,0,zd[i].w,zd[i].h,zd[i].l,zd[i].t,zd[i].w,zd[i].h);
+			ctx.closePath();
+			zd[i].t-=zdv;
+		}		
+		if(zd[dd].t<=fj.t-50){
+			if(dd>11){
+				lbol=false;
+				dd=-1;
+			}
+			if(lbol){
+				length++;
+				dd=length;
+			}else{dd++;}
+			if(zdz){
+				zd[dd]={tu:15,l:fj.l+fj.w/2-24,t:fj.t-14,w:48,h:14};
+			}else{
+				zd[dd]={tu:14,l:fj.l+fj.w/2-2,t:fj.t-14,w:6,h:14};
+			}			
+		}					
+	}
+	// 子弹增强
+	function zdzq(ctx){
+		zdz=zdz!=true;
+		if(zdz){
+				for(var i=0;i<=length;i++){
+					zd[dd]={tu:15,l:fj.l+fj.w/2-24,t:fj.t-14,w:48,h:14};
+				}
+			}else{
+				for(var i=0;i<=length;i++){
+					zd[dd]={tu:15,l:fj.l+fj.w/2-24,t:fj.t-14,w:48,h:14};
+				}
+			}
+	}
+	//炸弹
+	var zNum=2;
+	function zha(){
+		ctx.beginPath();
+		ctx.drawImage(arrImg[16],5,525,42,36);
+		ctx.font="20px 黑体";
+		ctx.fillStyle="#874847"
+		ctx.fillText(zNum,47,561);
+		ctx.closePath();
+	}
+	// daojuB();
+	function daojuB(){
+		zid={s:2,d:0,a:0,j:[]}
+		zad={s:2,d:0,a:0,j:[]}
+		hpd={s:2,d:0,a:0,j:[]}
+		daos=sj(200,500);		
+	}
+	// 道具
+	function daoju(a,zd,xin){
+		if(xin){
+			if(zd==zid){
+				zd.j[a]={tu:18,l:sj(0,sWidth*wb-39),t:-58,w:39,h:58,vx:sj(-1,1),vy:sj(1,3),x:true}//子弹参数
+
+			}else if(zd==zad){
+				zd.j[a]={tu:17,l:sj(0,sWidth*wb-39),t:-68,w:39,h:68,vx:sj(-1,1),vy:sj(1,3),x:true}//炸弹参数
+			}else{
+				zd.j[a]={tu:40,l:sj(0,sWidth*wb-39),t:-58,w:39,h:58,vx:sj(-1,1),vy:sj(1,3),x:true}//药箱参数
+			}
+		}else
+		if(zd.j[a].l>=fj.l-zd.j[a].w&&zd.j[a].l<=fj.l+fj.w&&zd.j[a].t>=fj.t-zd.j[a].h&&zd.j[a].t<=fj.t+fj.h){
+			if(zd==zid){
+				if(!zdz&&zzdd[0]<=0){//子弹未加强 执行增强，并赋时间
+					zdzq();
+					zzdd[0]=zzdd[1];
+				}else{ //在子弹加强的情况下，吃下加强道具，延长时间
+					zzdd[0]+=zzdd[1];
+				}		
+			}else if(zd==zad){
+				zNum++;//炸弹加1
+			}else{			
+				if(fj.hp<10){
+					fj.hp+=1;//加血
+				}	
+			}
+			//道具被吃后消失
+			zd.j[a].t+=600;
+			zd.j[a].x=false;
+		}
+		if(zd.j[a].x){//有参数时执行
+			// if(zd.j[a].l<0){zd.j[a].l=0}
+			ctx.beginPath();
+			ctx.drawImage(arrImg[zd.j[a].tu],zd.j[a].l,zd.j[a].t,zd.j[a].w,zd.j[a].h);
+			ctx.closePath();
+			// 位移
+			zd.j[a].l+=zd.j[a].vx;
+			zd.j[a].t+=zd.j[a].vy;
+			// 反弹
+			if(zd.j[a].l<0||zd.j[a].l>sWidth*wb-zd.j[a].w){zd.j[a].vx*=-1;}	
+		}	
+	}
+	function daojus(){
+		daos--;
+			var ssb=Math.random();
+			if(daos<=0){
+				if(ssb>0.5){
+					daoju(zid.a,zid,true);					
+					if(zid.a<5){
+						zid.a++
+					}else{
+						zid.a=0;
+					}
+				}else if(ssb>0.18){
+					daoju(zad.a,zad,true);
+					if(zad.a<3){
+						zad.a++
+					}else{
+						zad.a=0;
+					}					
+				}else{
+					daoju(hpd.a,hpd,true);
+					if(hpd.a<2){
+						hpd.a++
+					}else{
+						hpd.a=0;
+					}
+				}
+				daos=sj(500,1000);
+			}
+			for(var i=0;i<zid.j.length;i++){
+				daoju(i,zid,false)
+			}
+			for(var i=0;i<zad.j.length;i++){
+				daoju(i,zad,false)
+			}
+			for(var i=0;i<hpd.j.length;i++){
+				daoju(i,hpd,false)
+			}
+	}
+	// nandu1();
+	function nandu1(){
+		vs=1;//背景速度
+		 zdv=5;//子弹速度
+		 xs=[15,8,3];
+		 xue=[6,12,28];
+		 vy=[1,2.5,1,1.5,1,1.5];
+		 cp=[50,80,150,250,350,500];
+		 nandu=1;
+	}
+	function nandu2(){
+		vs=2;
+		zdv=8;
+		xs=[20,13,5];
+		xue=[8,18,36];
+		vy=[3,4,2,3,1,2];
+		cp=[8,15,65,100,250,350]
+		nandu=2;
+	}
+	function nandu3(){
+		vs=3;
+		zdv=10;
+		vy=[4,5,3,4,1.5,2]
+		nandu=3;
+	}
+	// s 飞机数 xs 最大生成 d飞机下标 p 敌机出现频率 b 限制敌机总数 x 出现在屏幕的敌机数量； c 敌机参数 tu 显示图片下限 ts 显示图片上限 xue 血量 fen分数加 
+	// djB();
+	function djB(){
+		djm={s:0,xs:xs[0],d:0,p:20,b:true,x:[],c:[],tu:19,ts:23,xue:xue[0],fen:1,dc:0,ks:false}	
+		djz={s:0,xs:xs[1],d:0,p:100,b:true,x:[],c:[],tu:24,ts:29,xue:xue[1],fen:5,dc:0,ks:false}	
+		djb={s:0,xs:xs[2],d:0,p:500,b:true,x:[],c:[],tu:30,ts:39,xue:xue[2],fen:20,dc:0,ks:false}
+	}
+	function dj(ctx,dj){
+		dj.p--;
+		if(dj.p<=0){
+			if(!dj.ks){dj.ks=true}
+			if(dj==djm){
+				//敌机参数 tu 显示的图片 l t 位置坐标 w h 宽高 vx 左右速度 vy 下落速度 b 是否被击毁 xue 血量
+					dj.c[dj.d]={tu:19,l:sj(0,sWidth*wb-34),t:-24,w:34,h:24,vx:sj(-1,1),vy:sj(vy[0],vy[1]),b:false,xue:xue[0]};	
+					dj.p=sj(20,40);//出现频率
+				}else if(dj==djz){
+					dj.c[dj.d]={tu:24,l:sj(0,sWidth*wb-46),t:-60,w:46,h:60,vx:sj(-0.8,0.8),vy:sj(vy[2],vy[3]),b:false,xue:xue[1]};
+					dj.p=sj(80,100);//出现频率
+				}else{
+					dj.c[dj.d]={tu:30,l:sj(0,sWidth*wb-110),t:-169,w:110,h:169,vx:sj(-0.4,0.4),vy:sj(vy[4],vy[5]),b:false,xue:xue[2],dong:10};
+					dj.p=sj(200,300);
+				}
+			if(dj.d>=dj.xs){//限制敌机总数
+				dj.b=false;
+				dj.d=-1;
+			}
+			if(dj.b){
+				dj.s++;
+				dj.d=dj.s;	
+			}else{dj.d++}
+					
+		}
+		if(dj.ks){//开始没有参数，不进行判断与绘制
+			dj.x=[];
+			for(var i=0;i<dj.s;i++){
+				if(dj.c[i].t<550&&dj.c[i].t>-dj.c[0].h){
+					dj.x.push(i);
+				}
+			}
+			for(var i=0;i<dj.s;i++){
+				//与我方飞机碰撞
+				if(dj.c[i].l>(fj.l-dj.c[i].w)&&dj.c[i].l<(fj.l+fj.w)&&dj.c[i].t>(fj.t-dj.c[i].h)&&dj.c[i].t<(fj.t+fj.h)){
+					fj.hps--;
+					if(fj.hps<=0){
+						fj.hp--;
+						fj.hps=20;//刷新20次，血量减少1
+						if(dj==djm){//若是小型敌机，则炸毁
+							dj.c[i].b=true;
+						}
+					}
+					if(fj.hp<=0){//血量为0，飞机爆炸
+						fj.hp=0;
+						fj.b=true;
+					}	
+				}
+				// 敌机是否被摧毁
+				if(dj.c[i].b){	
+					// if(dj.dc>=0||bombom){	
+						dj.c[i].tu++;
+						if(dj.c[i].tu>dj.ts){
+							dj.c[i].tu=dj.ts;
+							dj.c[i].b=false;
+							dj.c[i].t+=880;
+							flyFen[wjs]+=dj.fen*100;							
+						}
+						dj.dc=0;
+					// }	
+				}else{
+					if(dj==djb){
+						dj.c[i].dong--;
+						if(dj.c[i].dong<=0){
+							dj.c[i].tu=dj.c[i].tu==30?31:30;
+							dj.c[i].dong=10;
+						}
+					
+					}else{
+						dj.c[i].tu=dj.tu;
+					}					
+				}
+				// 绘制敌机
+				ctx.beginPath();
+				ctx.drawImage(arrImg[dj.c[i].tu],dj.c[i].l,dj.c[i].t,dj.c[i].w,dj.c[i].h);
+				ctx.closePath();
+				dj.c[i].l+=dj.c[i].vx;
+				dj.c[i].t+=dj.c[i].vy;
+				if(dj.c[i].l<=0||dj.c[i].l>=(sWidth*wb-dj.c[0].w)){dj.c[i].vx*=-1;}
+			}
+		}
+	}
+	var sb=0;
+	var pcV=10;
+	window.onkeydown=function(e){
+		if(e.keyCode==37){fj.l-=pcV;}
+		if(e.keyCode==38){fj.t-=pcV*2;}
+		if(e.keyCode==39){fj.l+=pcV;}
+		if(e.keyCode==40){fj.t+=pcV*2;}		
+		pcV+=2;
+	}
+	window.onkeyup=function(){
+		pcV=5;
+	}
+	function sj(min,max){
+		return Math.random()*(max-min)+min
+	}
+	// 运行
+	var id=[];		
+	function run(){
+		if(bombom){
+			bomm(djm)
+			bomm(djz)
+			bomm(djb)
+			bombom=false;
+		}
+		function bomm(dj){
+			for(var j=0;j<=dj.x.length-1;j++){
+				if(!dj.c[dj.x[j]].b&&dj.c[dj.x[j]].t>-200&&dj.c[dj.x[j]].t<580){
+					dj.c[dj.x[j]].b=true;
+				}
+			}
+		}
+		vv++;
+		if(vv==1){//每刷新n次后 执行
+			if(yunxing){
+				bt+=vs;//背景移动
+			}			
+			if(bt>=568){bt=0}
+			flyBj()//飞行边界
+			// 清空画板
+			ctx.clearRect(0,0,320,568);	
+			// 绘制
+			bg();//背景
+			dj(ctx,djb)//大型敌机
+			dj(ctx,djz)//中型敌机
+			dj(ctx,djm);//小型敌机
+			// 道具
+			daojus();
+			feiji(ctx);//我方飞机
+			// 子弹增强的有效时间
+			if(zdz){
+				zzdd[0]--;
+				if(zzdd[0]<=0){
+					zdzq();
+				}
+			}
+			zidan(ctx);//子弹
+			//hp 血量条
+			ctx.beginPath();
+			ctx.fillRect(191,5,fj.hp*10,10);
+			ctx.strokeStyle="#949494";
+			ctx.strokeRect(190,5,100,10);
+			ctx.closePath();
+			zha();//炸弹
+			vv=0;
+			fen.innerHTML="分数:"+flyFen[wjs];
+			if(nandu<2&&flyFen[wjs]>=80000){
+				nandu2();
+			}else if(flyFen[wjs]>250000){
+				nandu3();
+			}
+		}
+		if(zanting){
+			yunxing=false;
+			ks.style.display="block";
+			if(fj.hp<=0){
+				ks.innerHTML="重新开始";
+				cancelAnimationFrame(id);
+			}else{
+				ks.innerHTML="继续游戏"
+			}			
+			return}	
+		id=requestAnimationFrame(run);	
+	}
+	if(!window.cancelAnimationFrame){
+		window.cancelAnimationFrame=function(id){
+			clearTimeout(id);
+		}
+	}
+	window.requestAnimationFrame=(function(){
+		return window.requestAnimationFrame||window.webkitRequestAnimationFrame||mozRequestAnimationFrame||msRequestAnimationFrame||oRequestAnimationFrame||function(fn){
+
+			return setTimeout(fn,1000/80);
+
+		}
+	})()	
+</script>
+</html>
