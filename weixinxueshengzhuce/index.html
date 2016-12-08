@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>学城汇学生注册</title>
+    <link rel="stylesheet" href="weui.min.css"/>
+</head>
+<body>
+<div class="container" id="container"><!-- 主模块,包着引进模块 -->
+    <!-- 学校 -->
+    <div class="page picker js_show">
+        <div class="page__bd page__bd_spacing">
+            <a href="javascript:;" class="weui-btn weui-btn_default" id="showPicker">选择学校</a>
+            <!-- <a href="javascript:;" class="weui-btn weui-btn_default" id="showDatePicker">日期选择器</a> -->
+        </div>
+    </div>
+    <!-- 学号 -->
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">学号:</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入学号">
+        </div>
+    </div>
+
+    <label for="weuiAgree" class="weui-agree">
+        <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox">
+        <span class="weui-agree__text">
+            阅读并同意<a href="javascript:void(0);">《相关条款》</a>
+        </span>
+    </label>
+    <div class="weui-footer weui-footer_fixed-bottom">
+            <p class="weui-footer__links">
+                <a href="javascript:home();" class="weui-footer__link">学城汇学生注册页</a>
+            </p>
+            <p class="weui-footer__text">Copyright © 2008-2016 xuechenghui.ic</p>
+        </div>
+</div>
+
+</body>
+ <script src="zepto.min.js"></script>
+<script src="weui.min.js"></script>
+<script type="text/javascript">
+
+    $('#showPicker').on('click', function () {
+        weui.picker([{
+            label: '北京大学',
+            value: '北京大学',
+            index: '0011'
+        },{
+            label: '复旦大学',
+            value: '复旦大学',
+            index: '006'
+        },{
+            label: '清华大学',
+            value: '清华大学',
+            index: '007'
+        },{
+            label: '武汉大学',
+            value: '武汉大学',
+            index: '136'
+        },{
+            label: '厦门大学',
+            value: '厦门大学',
+            index: '0951'
+        },{
+            label: '浙江大学',
+            value: '浙江大学',
+            index: '0575'
+        },{
+            label: '上海交通大学',
+            value: '上海交通大学',
+            index: '0575'
+        },{
+            label: '广东创新科技职业学院华南总校',
+            value: '广东创新科技职业学院华南总校',
+            index: '00755'
+        },{
+            label: '广东创新科技职业学院华南分校',
+            value: '广东创新科技职业学院华南分校',
+            index: '05745'
+        },{
+            label: '暂时只开放以上学院',
+            disabled: true,
+            value: '暂时只开放以上学院',
+            index: '00000'
+        }],{
+            onChange: function (result) {
+               //取消
+            },
+            onConfirm: function (result) {
+                //确定
+                $('#showPicker').html(result);
+            }
+
+        });
+
+    });
+    // $('#showDatePicker').on('click', function () {
+    //     weui.datePicker({
+    //         start: 2016,
+    //         end: new Date().getFullYear(),
+    //         onChange: function (result) {
+    //             console.log(result);
+    //         },
+    //         onConfirm: function (result) {
+    //             console.log(result);
+    //         }
+    //     });
+    // });
+</script>
+</html>
