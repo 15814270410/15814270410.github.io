@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	
+	<title></title>
+	<!-- <script type="text/javascript">
+	(function(html){
+            change()
+            function change(){
+                var w = html.clientWidth
+                var size = 100*(w/375).toFixed(2)
+                html.style.fontSize = size+"px"
+            }
+            window.addEventListener('resize',function(){
+                change()
+            })
+        })(document.documentElement)
+</script> -->
+	<style type="text/css">
+		html,body{
+			margin: 0;padding: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(72, 73, 73, 0.12);
+			display: flex;
+			justify-content: center;/*左右居中*/
+			align-items: center;/*上下居中*/
+			
+		}
+		.wrap{
+			width:300px;
+			height:300px;
+			background:white;
+			border:2px solid white;
+			border-radius:5px;
+		}
+		.wrap:hover>.quan1{
+			transform: rotate(-270deg);
+		}
+		.quan1{
+			margin:40px auto;
+			width:100px;
+			height:100px;
+			/*border:5px solid black;*/
+			border:5px solid white;
+			border-left:5px solid #a5dc86;
+			transition: all 0.3s;
+			-webkit-transition: all 0.3s;
+			border-radius:50%;
+			-webkit-transform-origin: 55px 55px;	
+		}
+		.dui{
+			position:relative;
+			left:20px;
+			top:18px;
+			width:30px;
+			height:50px;
+			border-right: 7px solid #a5dc86;
+			border-bottom: 7px solid #a5dc86;
+			transform:rotate(-45deg);
+			-webkit-transform:rotate(-45deg);
+			/*border-collapse: collapse;*/
+		}
+		.duimove{
+			position:absolute;
+			top:-1px;
+			right:-8px;
+			width:40px;
+			height:60px;
+			background:white;
+			transform-origin: 0px 0px;
+			transform: rotate(0deg);
+		}
+		.examine{
+			background-color: rgb(174, 222, 244);
+			/*box-shadow: rgba(63, 99, 116, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;*/
+		}
+	</style>
+</head>
+<body>
+<div class="wrap">
+	<div class="quan1">
+		<div class="dui">
+			<div class="duimove"></div>
+		</div>
+	</div>
+	<span class="examine">查看考勤</span>
+</div>
+</body>
+<script type="text/javascript">
+	var quan1 = document.querySelector(".quan1")
+	var duimove = document.querySelector(".duimove")
+	console.log(duimove.offsetWidth)
+	window.onload = function(){
+		quan1.style.transform = "rotate(-270deg)";
+		quan1.style.webkitTransform = "rotate(-270deg)";
+		var w = duimove.offsetWidth;
+		var h = duimove.offsetHeight;
+		setTimeout(function(){
+			quan1.style.border="5px solid rgba(165, 220, 134, 0.2)";
+			var timer = setInterval(function(){
+				w-=6;
+				if(w>9){			
+				}else{
+					w=9;
+					h-=6;
+					if(h<=0){
+						quan1.style.border="5px solid rgba(165, 220, 134, 0.2)";
+						clearInterval(timer);
+					}
+				}
+				duimove.style.width = w + "px";
+				duimove.style.height = h + "px";
+			},30)
+		},300)
+	}
+
+    setTimeout(function(){ //IE6、7不会提示关闭
+        window.opener=null;
+        window.open("","_self");
+        window.close();
+    }, 3000);
+
+	
+</script>
+</html>
