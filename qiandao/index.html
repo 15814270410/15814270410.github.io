@@ -118,9 +118,7 @@
 	}
 
     setTimeout(function(){ //IE6、7不会提示关闭
-        window.opener=null;
-        window.open("","_self");
-        window.close();
+        WeixinJSBridge.call('closeWindow');
     }, 3000);
 
 	
