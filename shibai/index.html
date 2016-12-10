@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>签到失败</title>
+	<style type="text/css">
+		html,body{
+			margin: 0;padding: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(229, 236, 236, 0.3);
+			display: flex;
+			justify-content: center;/*左右居中*/
+			align-items: center;/*上下居中*/
+		}
+		.wrap{
+			width:300px;
+			height:300px;
+			background:white;
+			border:2px solid white;
+			border-radius:26px;
+			position: relative;
+			-webkit-box-shadow: #666 0px 0px 10px;
+			-moz-box-shadow: #666 0px 0px 10px;
+			box-shadow: #666 0px 0px 10px;
+		}
+		.quan1{
+			margin:40px auto;
+			width:100px;
+			height:100px;
+			border:5px solid white;
+			border-left:5px solid #F27474;
+			transition: all 0.3s;
+			-webkit-transition: all 0.3s;
+			border-radius:50%;
+			-webkit-transform-origin: 55px 55px;
+			text-align: center;
+			line-height: 100px;	
+		}
+		.examine{
+			display: inline-block;
+			width: 138px;
+			height: 50px;
+			font-size: 30px;
+			color: white;
+			line-height: 50px;
+			text-align: center;
+			background-color: rgb(174, 222, 244);
+			border-radius:10px;
+			position: absolute;
+			top: 76%;
+			left: 27%;	
+		}
+		.headline{
+			color: #575757;
+			position: absolute;
+			left: 29%;
+			top: 47%;
+		}
+		.tan{
+			font-size: 15px;
+			transform:rotate(45deg);
+			-webkit-transform:rotate(90deg);
+			opacity: 0;
+			color: #F27474;
+		}
+	</style>
+</head>
+<body>
+<div class="wrap">
+	<div class="quan1">
+		<span class="tan">!</span>
+	</div>
+	
+	<h1 class="headline">签到失败</h1>
+	<span class="examine">重新签到</span>
+</div>
+</body>
+<script type="text/javascript">
+	var quan1 = document.querySelector(".quan1");
+	var tan = document.querySelector(".tan")
+	var ding = [];
+	window.onload = function(){
+		quan1.style.transform = "rotate(-360deg)";//旋转圈
+		quan1.style.webkitTransform = "rotate(-360deg)";//旋转圈兼容写法
+	
+		setTimeout(function(){
+			quan1.style.border="5px solid #ccc";
+			var i = 15;
+			var a = 1;
+			var b = 5;
+			animationT();
+			function animationT(){
+				console.log(b)
+				i+=b;
+				tan.style.opacity=1;
+				tan.style.fontSize=i+"px";
+				
+				if (a==1&&i<=80) {
+					
+					ding=requestAnimationFrame(animationT);//运行移动端定时器
+				}else if(i>=63){
+					b=-5;
+					a=0;
+					ding=requestAnimationFrame(animationT);//运行移动端定时器
+				}
+					quan1.style.border="5px solid #F27474";
+			}
+		
+		},300)
+	}
+
+	//判断兼容移动端定时器
+	if(!window.cancelAnimationFrame){
+		window.cancelAnimationFrame=function(id){
+			clearTimeout(id);
+		}
+	}
+	window.requestAnimationFrame=(function(){
+		return window.requestAnimationFrame||window.webkitRequestAnimationFrame||mozRequestAnimationFrame||msRequestAnimationFrame||oRequestAnimationFrame||function(fn){
+
+			return setTimeout(fn,1000/80);
+
+		}
+	})()
+
+	//关闭窗口
+    // setTimeout(function(){ //IE6、7不会提示关闭
+    //     window.opener=null;
+    //     window.open("","_self");
+    //     window.close();
+    // }, 3000);
+
+	
+</script>
+</html>

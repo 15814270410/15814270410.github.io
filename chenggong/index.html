@@ -4,37 +4,28 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	
-	<title></title>
-	<!-- <script type="text/javascript">
-	(function(html){
-            change()
-            function change(){
-                var w = html.clientWidth
-                var size = 100*(w/375).toFixed(2)
-                html.style.fontSize = size+"px"
-            }
-            window.addEventListener('resize',function(){
-                change()
-            })
-        })(document.documentElement)
-</script> -->
+	<title>签到成功</title>
+	
 	<style type="text/css">
 		html,body{
 			margin: 0;padding: 0;
 			width: 100%;
 			height: 100%;
-			background-color: rgba(72, 73, 73, 0.12);
+			background-color: rgba(229, 236, 236, 0.3);
 			display: flex;
 			justify-content: center;/*左右居中*/
 			align-items: center;/*上下居中*/
-			
 		}
 		.wrap{
 			width:300px;
 			height:300px;
 			background:white;
 			border:2px solid white;
-			border-radius:5px;
+			border-radius:26px;
+			position: relative;
+			-webkit-box-shadow: #666 0px 0px 10px;
+			-moz-box-shadow: #666 0px 0px 10px;
+			box-shadow: #666 0px 0px 10px;
 		}
 		.wrap:hover>.quan1{
 			transform: rotate(-270deg);
@@ -43,7 +34,6 @@
 			margin:40px auto;
 			width:100px;
 			height:100px;
-			/*border:5px solid black;*/
 			border:5px solid white;
 			border-left:5px solid #a5dc86;
 			transition: all 0.3s;
@@ -74,8 +64,24 @@
 			transform: rotate(0deg);
 		}
 		.examine{
+			display: inline-block;
+			width: 100px;
+			height: 50px;
+			font-size: 30px;
+			color: white;
+			line-height: 50px;
+			text-align: center;
 			background-color: rgb(174, 222, 244);
-			/*box-shadow: rgba(63, 99, 116, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset;*/
+			border-radius:10px;
+			position: absolute;
+			top: 76%;
+			left: 33.5%;	
+		}
+		.headline{
+			color: #575757;
+			position: absolute;
+			left: 29%;
+			top: 47%;
 		}
 	</style>
 </head>
@@ -86,41 +92,36 @@
 			<div class="duimove"></div>
 		</div>
 	</div>
-	<span class="examine">查看考勤</span>
+	<h1 class="headline">签到成功</h1>
+	<span class="examine">确定</span>
 </div>
 </body>
 <script type="text/javascript">
 	var quan1 = document.querySelector(".quan1")
 	var duimove = document.querySelector(".duimove")
-	console.log(duimove.offsetWidth)
 	window.onload = function(){
-		quan1.style.transform = "rotate(-270deg)";
-		quan1.style.webkitTransform = "rotate(-270deg)";
-		var w = duimove.offsetWidth;
-		var h = duimove.offsetHeight;
+		quan1.style.transform = "rotate(-270deg)";//旋转圈
+		quan1.style.webkitTransform = "rotate(-270deg)";//旋转圈兼容写法
+		var w = duimove.offsetWidth;//获取覆盖勾div的宽
+		var h = duimove.offsetHeight;//获取覆盖勾div的高
 		setTimeout(function(){
 			quan1.style.border="5px solid rgba(165, 220, 134, 0.2)";
 			var timer = setInterval(function(){
-				w-=6;
+				w-=20;
 				if(w>9){			
 				}else{
 					w=9;
-					h-=6;
+					h-=20;
 					if(h<=0){
 						quan1.style.border="5px solid rgba(165, 220, 134, 0.2)";
-						clearInterval(timer);
+						clearInterval(timer);//清除定时器	
 					}
 				}
-				duimove.style.width = w + "px";
-				duimove.style.height = h + "px";
+				duimove.style.width = w + "px";//改变覆盖勾div的宽
+				duimove.style.height = h + "px";//改变覆盖勾div的高
 			},30)
 		},300)
 	}
 
-    setTimeout(function(){ //IE6、7不会提示关闭
-        WeixinJSBridge.call('closeWindow');
-    }, 3000);
-
-	
 </script>
 </html>
