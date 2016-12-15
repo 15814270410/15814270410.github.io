@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+</head>
+<script type="text/javascript">//记得js放在头部
+	(function(html){
+            change()
+            function change(){
+                var w = html.clientWidth
+                var size = 100*(w/375).toFixed(2)
+                html.style.fontSize = size+"px"
+            }
+            window.addEventListener('resize',function(){
+                change()
+            })
+        })(document.documentElement)
+</script>
+<style>
+body,html{
+	font-size: .09rem;
+}
+
+	/*左右表格的统一颜色,圆角和居中*/
+	.sign-table td{
+		text-align: center;
+		background: #f8f8f8;
+		-moz-border-radius: .1rem; 
+		-webkit-border-radius: .1rem;
+	}
+	/*左表格浮到左边*/
+	.sign-left{
+		width: 1rem;
+		float: left;
+	}
+
+	/*包围右表格的父级 浮到右边 固定宽度超出隐藏*/
+	.week-wrap{
+		-moz-border-radius: .1rem; 
+		-webkit-border-radius: .1rem;
+		position: relative;
+		float: right;
+		width: 2.69rem;
+		overflow: hidden;
+	}
+	/*右表格总长和定位*/
+	.sign-right{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 19rem;
+	}
+	/*大节字体颜色*/
+	.week-typeface{
+		color: #cfcfcf;
+	}
+
+
+</style>
+<body>
+
+<!-- 总布局说明 分两个表格两表高度用js根据获取可视窗口来赋值 左右各自浮动 左表格固定数据不能移动 右表格固定宽度里面超出隐藏一整个星期的签到表格 -->
+
+	<!-- 左边固定表格 -->
+    <table class="sign-table sign-left">
+    	<tr class="sign-top">
+    		<td colspan="2" >时间</td>
+    		
+    	</tr>
+    	<tr>
+    		<td rowspan="4">上午</td>
+    		<td>第1节</td>
+    		
+    	</tr>
+    	<tr>
+    		<td>第2节</td>
+    	</tr>
+    	<tr>
+        	<td>第3节</td>
+        	
+        </tr>
+        <tr>
+        	<td>第4节</td>
+        </tr>
+		
+		<tr>
+    		<td rowspan="4">下午</td>
+    		<td>第5节</td>
+    		
+    	</tr>
+    	<tr>
+    		<td>第6节</td>
+    	</tr>
+    	<tr>
+          <td>第7节</td>
+         
+        </tr>
+        <tr>
+        	<td>第8节</td>
+        </tr>
+        <tr>
+    		<td rowspan="4">晚上</td>
+    		<td>第9节</td>
+    		
+    	</tr>
+    	<tr>
+    		<td>第10节</td>
+    	</tr>
+    	<tr>
+          <td>第11节</td>
+          <td rowspan="2" align="center">
+        		
+          </td>
+        </tr>
+        <tr>
+        	<td>第12节</td>
+        </tr>
+
+    </table>
+
+	<!-- 右边滑动查看模块 -->
+	<div class="week-wrap">
+		<table class="sign-table sign-right">
+	    	<tr class="week-top">
+	    		<td colspan="2">星期一</td>
+	    		<td colspan="2">星期二</td>
+	    		<td colspan="2">星期三</td>
+	    		<td colspan="2">星期四</td>
+	    		<td colspan="2">星期五</td>
+	    		<td colspan="2">星期六</td>
+	    		<td colspan="2">星期天</td>
+	    	</tr>
+	    	<tr class="week-typeface" rowspan="2">
+	    		<td >第一大节上课</td>
+    			<td >第一大节下课</td>
+	    		<td >第一大节上课</td>
+    			<td >第一大节下课</td>
+    			<td >第一大节上课</td>
+    			<td >第一大节下课</td>
+    			<td >第一大节上课</td>
+    			<td >第一大节下课</td>
+    			<td >第一大节上课</td>
+    			<td >第一大节下课</td>
+    			<td >第一大节上课</td>
+    			<td >第一大节下课</td>
+    			<td >第一大节上课</td>
+    			<td >第一大节下课</td>
+	    	</tr>
+	    	<tr class="week-typeface" rowspan="2">
+	    		<td >第二大节上课</td>
+    			<td >第二大节下课</td>
+    			<td >第二大节上课</td>
+    			<td >第二大节下课</td>
+    			<td >第二大节上课</td>
+    			<td >第二大节下课</td>
+    			<td >第二大节上课</td>
+    			<td >第二大节下课</td>
+    			<td >第二大节上课</td>
+    			<td >第二大节下课</td>
+    			<td >第二大节上课</td>
+    			<td >第二大节下课</td>
+    			<td >第二大节上课</td>
+    			<td >第二大节下课</td>
+	    	</tr>
+	    	
+			
+			<tr class="week-typeface" rowspan="2">
+	    		<td >第三大节上课</td>
+    			<td >第三大节下课</td>
+    			<td >第三大节上课</td>
+    			<td >第三大节下课</td>
+    			<td >第三大节上课</td>
+    			<td >第三大节下课</td>
+    			<td >第三大节上课</td>
+    			<td >第三大节下课</td>
+    			<td >第三大节上课</td>
+    			<td >第三大节下课</td>
+    			<td >第三大节上课</td>
+    			<td >第三大节下课</td>
+    			<td >第三大节上课</td>
+    			<td >第三大节下课</td>
+	    	</tr>
+	    	<tr class="week-typeface" rowspan="2">
+	    		<td >第四大节上课</td>
+    			<td >第四大节下课</td>
+    			<td >第四大节上课</td>
+    			<td >第四大节下课</td>
+    			<td >第四大节上课</td>
+    			<td >第四大节下课</td>
+    			<td >第四大节上课</td>
+    			<td >第四大节下课</td>
+    			<td >第四大节上课</td>
+    			<td >第四大节下课</td>
+    			<td >第四大节上课</td>
+    			<td >第四大节下课</td>
+    			<td >第四大节上课</td>
+    			<td >第四大节下课</td>
+	    	</tr>
+	    	<tr class="week-typeface" rowspan="2">
+	        	<td >第五大节上课</td>
+    			<td >第五大节下课</td>
+    			<td >第五大节上课</td>
+    			<td >第五大节下课</td>
+    			<td >第五大节上课</td>
+    			<td >第五大节下课</td>
+    			<td >第五大节上课</td>
+    			<td >第五大节下课</td>
+    			<td >第五大节上课</td>
+    			<td >第五大节下课</td>
+    			<td >第五大节上课</td>
+    			<td >第五大节下课</td>
+    			<td >第五大节上课</td>
+    			<td >第五大节下课</td>
+	        </tr>
+	        <tr class="week-typeface" rowspan="2">
+	        	<td >第六大节上课</td>
+    			<td >第六大节下课</td>
+    			<td >第六大节上课</td>
+    			<td >第六大节下课</td>
+    			<td >第六大节上课</td>
+    			<td >第六大节下课</td>
+    			<td >第六大节上课</td>
+    			<td >第六大节下课</td>
+    			<td >第六大节上课</td>
+    			<td >第六大节下课</td>
+    			<td >第六大节上课</td>
+    			<td >第六大节下课</td>
+    			<td >第六大节上课</td>
+    			<td >第六大节下课</td>
+	        </tr>
+	    </table>	
+	</div>
+
+<script type="text/javascript" src="jquery-3.0.0.min.js"></script>
+<script>
+	
+		
+
+			// 计算可视高度 赋值给表格  减去53是因为底部微信跳转插件固定高度是53
+			var topPrice = document.documentElement.clientHeight-53;
+			// var  knobH= (document.documentElement.clientHeight-53-10-topPrice)/3;
+
+			$(".sign-table").css("height",topPrice+"px");
+			$(".week-wrap").css("height",topPrice+"px");
+
+
+			// 计算表格右第一栏的高度赋值给表格右第一栏的高度
+			var signTop = document.querySelector(".sign-top")
+			var signTopH = signTop.offsetHeight;
+			$(".week-top").css("height",signTopH+"px");
+
+			// 计算右表格占据剩余宽度
+			var signLeft = document.querySelector(".sign-left");
+			var weekW = document.body.offsetWidth -signLeft.offsetWidth;
+			$(".week-wrap").css("width",weekW+"px");
+			
+
+			// 查看 移动事件
+			var signRight = document.querySelector(".sign-right")
+			var weekWrap = document.querySelector(".week-wrap")
+			var x = 0;
+			var y = 0;
+			var dx = 0;
+			var dy = 0;
+			var bol = false;//一开始设置bol = false;为了不让手指点击div以外地方触碰函数的发现
+			signRight.addEventListener("touchstart",function (e) {//手指开始触碰事件
+				dx = e.touches[0].clientX - signRight.offsetLeft;
+				bol = true;//当手开始触碰时bol = true;
+				e.preventDefault()
+			})
+			document.addEventListener("touchmove",function(e){//记得用document来定义,表示全部的
+				var move = e.touches[0].clientX - dx;
+				if (bol&&move>0) {//判断左边
+					move = 0;
+				}else if (bol&&move<weekWrap.offsetWidth-signRight.offsetWidth) {//判断右边
+					move = weekWrap.offsetWidth-signRight.offsetWidth;
+				}else if(bol){//移动位置
+					signRight.style.left = move + "px";
+				}
+				
+			})
+			document.addEventListener("touchend",function(e){//手指离开事件,
+				bol = false;//当手离开时bol = false;
+			})
+
+
+
+
+
+
+	
+	
+</script>
+
+</body>
+</html>

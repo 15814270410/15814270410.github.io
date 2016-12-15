@@ -89,7 +89,7 @@
 			quan1.style.border="5px solid #ccc";
 			var i = 15;
 			var a = 1;
-			var b = 7;
+			var b = 5;
 			
 			var dingshi=setInterval(function (){
 				console.log(b)
@@ -98,15 +98,16 @@
 				tan.style.fontSize=i+"px";
 				
 				if (a==1&&i>=80) {
-					b=-7;
+					b=-10;
 					a=0;
 					// ding=requestAnimationFrame(animationT);//运行移动端定时器
 				}else if(a==0&&i<=65){
+					quan1.style.border="5px solid #F27474";
 					clearInterval(dingshi)
 					// ding=requestAnimationFrame(animationT);//运行移动端定时器
 				}
-					quan1.style.border="5px solid #F27474";
-			},30)
+					
+			},15)
 		
 		},300)
 	}
