@@ -30,6 +30,9 @@ body,html{
 -ms-user-select:none;
 user-select:none;
 }
+.lod{
+        display: none;
+    }
 
 	/*左右表格的统一颜色,圆角和居中*/
 	.sign-table td{
@@ -67,7 +70,7 @@ user-select:none;
 
 
 </style>
-<body>
+<body class="lod">
 
 <!-- 总布局说明 分两个表格两表高度用js根据获取可视窗口来赋值 左右各自浮动 左表格固定数据不能移动 右表格固定宽度里面超出隐藏一整个星期的签到表格 -->
 
@@ -241,7 +244,7 @@ user-select:none;
 
 <script type="text/javascript" src="jquery-3.0.0.min.js"></script>
 <script>
-	
+	$(".lod").css("display","block");
 		//防止移动端上下拖拉窗口
 window.onload=test();//网页加载再执行
 function test(){
