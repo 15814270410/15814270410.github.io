@@ -234,7 +234,31 @@ body,html{
 <script type="text/javascript" src="jquery-3.0.0.min.js"></script>
 <script>
 	
-		
+		//防止移动端上下拖拉窗口
+window.onload=test();//网页加载再执行
+function test(){
+     function stopDrop() {
+        var lastY;//最后一次y坐标点
+        $(document.body).on('touchstart', function(event) {
+            lastY = event.originalEvent.changedTouches[0].clientY;//点击屏幕时记录最后一次Y度坐标。
+        });
+        $(document.body).on('touchmove', function(event) {
+            var y = event.originalEvent.changedTouches[0].clientY;
+            console.log(y,lastY)
+            var st = $(this).scrollTop(); //滚动条高度  
+            if (y >= lastY && st <= 10) {//如果滚动条高度小于0，可以理解为到顶了，且是下拉情况下，阻止touchmove事件。防止移动端下拖拉窗口
+                lastY = y;
+                event.preventDefault();
+            }
+            if (y <= lastY && st <= 10) {//防止移动端上拖拉窗口
+                lastY = y;
+                event.preventDefault();
+            }
+            lastY = y;
+        });
+    }
+    stopDrop();
+}
 
 			// 计算可视高度 赋值给表格  减去53是因为底部微信跳转插件固定高度是53
 			var topPrice = document.documentElement.clientHeight-53;
