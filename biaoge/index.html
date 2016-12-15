@@ -251,19 +251,20 @@ user-select:none;
                  function stopDrop() {
                     var lastY;//最后一次y坐标点
                     var bd = document.body;
-                   console.log("666")
+                   // console.log("666")
                   document.addEventListener('touchstart', function(e) {
                         lastY = e.touches[0].clientY;//点击屏幕时记录最后一次Y度坐标。
-                        console.log("5555")
+                        // console.log("5555")
                     });
                    document.addEventListener('touchmove', function(e) {
                         var y = e.touches[0].clientY;
-                        console.log(y,lastY)
-                        var st = this.scrollTop; //滚动条高度  
+                        var st = document.documentElement.scrollTop; //滚动条高度  
+                        console.log(y,lastY,st)
+                        
                         if (y >= lastY && st <= 10) {//如果滚动条高度小于0，可以理解为到顶了，且是下拉情况下，阻止touchmove事件。防止移动端下拖拉窗口
                             lastY = y;
                             event.preventDefault();
-                            console.log("5555")
+                            // console.log("5555")
                         }
                         if (y <= lastY && st <= 10) {//防止移动端上拖拉窗口
                             lastY = y;
@@ -275,7 +276,6 @@ user-select:none;
                 }
                 stopDrop();
             }
-
 			// 计算可视高度 赋值给表格  减去53是因为底部微信跳转插件固定高度是53
 			var topPrice = document.documentElement.clientHeight-53;
 			// var  knobH= (document.documentElement.clientHeight-53-10-topPrice)/3;
