@@ -3,9 +3,6 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
-    <metaname="screen-orientation"content="portrait">
-
-<metaname="x5-orientation"content="portrait">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 </head>
 <script type="text/javascript">//记得js放在头部
@@ -96,10 +93,17 @@ user-select:none;
 	.week-typeface{
 		color: #cfcfcf;
 	}
+    .coverage{
+        width: 100%;
+        height: 100%;
+        background: grey;
+        display: none;
+    }
 
 
 </style>
 <body class="lod">
+<div class="coverage"></div>
 
 <!-- 总布局说明 分两个表格两表高度用js根据获取可视窗口来赋值 左右各自浮动 左表格固定数据不能移动 右表格固定宽度里面超出隐藏一整个星期的签到表格 -->
 
@@ -286,24 +290,16 @@ user-select:none;
             lod.style.display="block";
 
 
-// window.onresize = function(){}
-
-// if(window.orientation!=0){
-        
-//         lod.style.display='none';
-//         alert('请使用竖屏观看！222');
-        
-// }
-
+var coverage = document.querySelector(".coverage");
 window.onorientationchange=function(){
-// var lod=document.getElementById('orientation');
+
 
 if(window.orientation==0){
-                lod.style.display='block';
+                coverage.style.display='block';
         }else
         { 
-            lod.style.display='none';
-                alert('请使用竖屏观看！111');
+            coverage.style.display='none';
+                // alert('请使用竖屏观看！111');
                
         }
 }; 
