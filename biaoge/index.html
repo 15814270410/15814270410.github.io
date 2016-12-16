@@ -408,7 +408,7 @@ user-select:none;
                 e.preventDefault()
                 // console.log(dx)
             })
-            document.addEventListener("touchmove",function(e){//记得用document来定义,表示全部的
+            signRight.addEventListener("touchmove",function(e){//记得用document来定义,表示全部的
                 var move = e.touches[0].clientX - dx;
                 if (!bol) {
                     return;
@@ -425,9 +425,7 @@ user-select:none;
                 
                 
             })
-            document.addEventListener("touchend",function(e){//手指离开事件,
-                // bol = false;//当手离开时bol = false;
-            })
+           
 
 
 
