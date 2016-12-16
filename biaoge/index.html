@@ -3,6 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+    <metaname="screen-orientation"content="portrait">
+
+<metaname="x5-orientation"content="portrait">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 </head>
 <script type="text/javascript">//记得js放在头部
@@ -379,7 +382,9 @@ user-select:none;
                 for(var i = 0;i<clen;i++){                 
                     dates[i].innerHTML = formatDate(i==0 ? date : addDate(date,1));
                 }                
-            };             
+            };
+
+            // 可以点击下一周             
             // document.getElementById('last-week').onclick = function(){
             //     setDate(addDate(currentFirstDate,-7));         
             // };             
