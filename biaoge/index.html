@@ -244,8 +244,16 @@ user-select:none;
 
 <script type="text/javascript" src="jquery-3.0.0.min.js"></script>
 <script>
-	$(".lod").css("display","block");
-//防止移动端上下拖拉窗口
+            // loaded完js再显示
+             var lod = document.querySelector(".lod")
+        
+            lod.style.display="block";
+
+
+
+
+
+            //防止移动端上下拖拉窗口
             window.onload=test();//网页加载再执行
             function test(){
                  function stopDrop() {
@@ -259,7 +267,7 @@ user-select:none;
                    document.addEventListener('touchmove', function(e) {
                         var y = e.touches[0].clientY;
                         var st = document.documentElement.scrollTop; //滚动条高度  
-                        console.log(y,lastY,st)
+                        // console.log(y,lastY,st)
                         
                         if (y >= lastY && st <= 10) {//如果滚动条高度小于0，可以理解为到顶了，且是下拉情况下，阻止touchmove事件。防止移动端下拖拉窗口
                             lastY = y;
@@ -269,59 +277,89 @@ user-select:none;
                         if (y <= lastY && st <= 10) {//防止移动端上拖拉窗口
                             lastY = y;
                             event.preventDefault();
-                            console.log("5555")
+                            // console.log("5555")
                         }
                         lastY = y;
                     });
                 }
                 stopDrop();
             }
-			// 计算可视高度 赋值给表格  减去53是因为底部微信跳转插件固定高度是53
-			var topPrice = document.documentElement.clientHeight-53;
-			// var  knobH= (document.documentElement.clientHeight-53-10-topPrice)/3;
+			// 计算可视高度 赋值给表格
+            var topPrice = document.documentElement.clientHeight-53;
+            var signTable = document.querySelectorAll(".sign-table");
+            var weekWrap = document.querySelector(".week-wrap")
+            signTable[0].style.height=topPrice+"px";
+            signTable[1].style.height=topPrice+"px";
+            weekWrap.style.height=topPrice+"px";
+            // var  knobH= (document.documentElement.clientHeight-53-10-topPrice)/3;
+            // $(".sign-table").css("height",topPrice+"px");
+            // $(".week-wrap").css("height",topPrice+"px");
 
-			$(".sign-table").css("height",topPrice+"px");
-			$(".week-wrap").css("height",topPrice+"px");
 
+            // 计算表格右第一栏的高度赋值给表格右第一栏的高度
+            var weekTop = document.querySelector(".week-top")
+            var signTop = document.querySelector(".sign-top")
+            var signTopH = signTop.offsetHeight;
+            weekTop.style.height=signTopH+"px";
+            // $(".week-top").css("height",signTopH+"px");
 
-			// 计算表格右第一栏的高度赋值给表格右第一栏的高度
-			var signTop = document.querySelector(".sign-top")
-			var signTopH = signTop.offsetHeight;
-			$(".week-top").css("height",signTopH+"px");
-
-			// 计算右表格占据剩余宽度
-			var signLeft = document.querySelector(".sign-left");
-			var weekW = document.body.offsetWidth -signLeft.offsetWidth;
-			$(".week-wrap").css("width",weekW+"px");
+            // 计算右表格占据剩余宽度
+            // var weekWrap = document.querySelector(".week-wrap");
+            var signRight = document.querySelector(".sign-right")
+            var signLeft = document.querySelector(".sign-left");
+            var weekW = document.body.offsetWidth -signLeft.offsetWidth;
+            weekWrap.style.width=weekW+"px";
+            signRight.style.width=weekW*7+"px";// 算右表格的总宽度
+            // $(".week-wrap").css("width",weekW+"px");
 			
 
+
+
+            var a = new Array("7", "1", "2", "3", "4", "5", "6");  
+            var week = new Date().getDay();  
+            var str = "今天是星期"+ a[week]; 
+            console.log(weekW*7,a[week],weekW*7*a[week])
+           signRight.style.transform = "translate3d("+weekW*(a[week]-1)*-1+"px,0px,0px)";
+
+
+
+
+
 			// 查看 移动事件
-			var signRight = document.querySelector(".sign-right")
-			var weekWrap = document.querySelector(".week-wrap")
-			var x = 0;
-			var y = 0;
-			var dx = 0;
-			var dy = 0;
-			var bol = false;//一开始设置bol = false;为了不让手指点击div以外地方触碰函数的发现
-			signRight.addEventListener("touchstart",function (e) {//手指开始触碰事件
-				dx = e.touches[0].clientX - signRight.offsetLeft;
-				bol = true;//当手开始触碰时bol = true;
-				e.preventDefault()
-			})
-			document.addEventListener("touchmove",function(e){//记得用document来定义,表示全部的
-				var move = e.touches[0].clientX - dx;
-				if (bol&&move>0) {//判断左边
-					move = 0;
-				}else if (bol&&move<weekWrap.offsetWidth-signRight.offsetWidth) {//判断右边
-					move = weekWrap.offsetWidth-signRight.offsetWidth;
-				}else if(bol){//移动位置
-					signRight.style.left = move + "px";
-				}
-				
-			})
-			document.addEventListener("touchend",function(e){//手指离开事件,
-				bol = false;//当手离开时bol = false;
-			})
+            
+            var weekWrap = document.querySelector(".week-wrap")
+            var x = 0;
+            var y = 0;
+            var dx = 0;
+            var dy = 0;
+            var left =0;//由于把定位改为translate3d,获取offsetLeft一直为零,需要存贮定位left的值
+            var bol = false;//一开始设置bol = false;为了不让手指点击div以外地方触碰函数的发现
+            signRight.addEventListener("touchstart",function (e) {//手指开始触碰事件
+                dx = e.touches[0].clientX - left//由于把定位改为translate3d,获取offsetLeft一直为零,需要存贮定位left的值
+                bol = true;//当手开始触碰时bol = true;
+                e.preventDefault()
+                console.log(dx)
+            })
+            document.addEventListener("touchmove",function(e){//记得用document来定义,表示全部的
+                var move = e.touches[0].clientX - dx;
+                if (!bol) {
+                    return;
+                }
+                if (move>0) {//判断左边
+                    move = 0;
+                }else if (move<weekWrap.offsetWidth-signRight.offsetWidth) {//判断右边
+                    move = weekWrap.offsetWidth-signRight.offsetWidth;
+                }
+                console.log(signRight.offsetLeft)
+                //移动位置
+                    signRight.style.transform = "translate3d("+move+"px,0px,0px)";
+                    left=move;//由于把定位改为translate3d,获取offsetLeft一直为零,需要存贮定位left的值
+                
+                
+            })
+            document.addEventListener("touchend",function(e){//手指离开事件,
+                // bol = false;//当手离开时bol = false;
+            })
 
 
 
