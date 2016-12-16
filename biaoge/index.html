@@ -290,18 +290,18 @@ user-select:none;
 
 if(window.orientation!=0){
         var lod=document.getElementById('orientation');
-        alert('横屏内容太少啦，请使用竖屏观看！');
-        lod.style.display='block';
+        alert('请使用竖屏观看！2');
+        lod.style.display='none';
 }
 
 window.onorientationchange=function(){
 var lod=document.getElementById('orientation');
 
 if(window.orientation==0){
-                lod.style.display='none';
+                lod.style.display='block';
         }else
         {
-                alert('横屏内容太少啦，请使用竖屏观看！');
+                alert('请使用竖屏观看！1');
                 lod.style.display='none';
         }
 }; 
