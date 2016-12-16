@@ -288,7 +288,23 @@ user-select:none;
 
 // window.onresize = function(){}
 
+if(window.orientation!=0){
+        var lod=document.getElementById('orientation');
+        alert('横屏内容太少啦，请使用竖屏观看！');
+        lod.style.display='block';
+}
 
+window.onorientationchange=function(){
+var lod=document.getElementById('orientation');
+
+if(window.orientation==0){
+                lod.style.display='none';
+        }else
+        {
+                alert('横屏内容太少啦，请使用竖屏观看！');
+                lod.style.display='block';
+        }
+}; 
 
             //防止移动端上下拖拉窗口
             window.onload=test();//网页加载再执行
