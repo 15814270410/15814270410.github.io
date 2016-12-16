@@ -289,9 +289,10 @@ user-select:none;
 // window.onresize = function(){}
 
 if(window.orientation!=0){
-        var lod=document.getElementById('orientation');
-        alert('请使用竖屏观看！222');
+        
         lod.style.display='none';
+        alert('请使用竖屏观看！222');
+        
 }
 
 window.onorientationchange=function(){
@@ -300,9 +301,10 @@ var lod=document.getElementById('orientation');
 if(window.orientation==0){
                 lod.style.display='block';
         }else
-        {
+        { 
+            lod.style.display='none';
                 alert('请使用竖屏观看！111');
-                lod.style.display='none';
+               
         }
 }; 
 
