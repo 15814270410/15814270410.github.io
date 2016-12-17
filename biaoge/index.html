@@ -3,10 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>考勤记录</title>
-    <meta name="x5-orientation" content="portrait">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 </head>
-<script type="text/javascript">//记得js放在头部
+<!-- 算rem js -->
+<script type="text/javascript">
 	(function(html){
             change()
             function change(){
@@ -20,31 +20,28 @@
         })(document.documentElement)
 </script>
 <style>
-body,h1,h2,h3,h4,p,dl,dd,ul,ol,form,input,textarea,th,td,select{margin: 0;padding: 0;}
-em{font-style: normal;}
-li{list-style: none;}
-a{text-decoration: none;}
-img{border: none;vertical-align: top;}
-/*table{border-collapse: collapse;}*/
-input,textarea{outline: none;}
-textarea{resize:none;overflow: auto;}
-body{font-size:12px;font-family: arial;}
-html,body{
-    width: 100%;
-    height: 100%;
-}
-body,html{
-	font-size: .16rem;
-}
-* {
--webkit-touch-callout:none;
--webkit-user-select:none;
--khtml-user-select:none;
--moz-user-select:none;
--ms-user-select:none;
-user-select:none;
-}
-.lod{
+    /*重置样式*/
+    body,h1,h2,h3,h4,p,dl,dd,ul,ol,form,input,textarea,th,td,select{margin: 0;padding: 0;font-size: .14rem;}
+    em{font-style: normal;}
+    img{border: none;vertical-align: top;}
+    input,textarea{outline: none;}
+    textarea{resize:none;overflow: auto;}
+    body{font-size:12px;font-family: arial;}
+    html,body{
+        width: 100%;
+        height: 100%;
+    }
+    /*去除长按复制文字默认事件*/
+    * {
+        -webkit-touch-callout:none;
+        -webkit-user-select:none;
+        -khtml-user-select:none;
+        -moz-user-select:none;
+        -ms-user-select:none;
+        user-select:none;
+    }
+    /*一开始none掉整个父级标签js加载完后显示,避免初始表格最小形态*/
+    .lod{
         display: none;
     }
 
@@ -70,137 +67,124 @@ user-select:none;
 		width: 2.69rem;
 		overflow: hidden;
 	}
+
     /*左表日期样式*/
     .dates{
-        /*  font-size: .15rem;
-            margin-right: .1rem;
-            margin-left: -.8rem;
-        */
-
-           
         color: #a8a6a6;
-        font-size: 12px;
-         margin-top: -0.03rem;
+        font-size: .14rem;
+        margin-top: -0.03rem;
         margin-bottom: -.05rem;
     }
+
 	/*右表格总长和定位*/
 	.sign-right{
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: 19rem;
+        /*设置成3d容器解决兼容问题*/
+        transform-style: preserve-3d;
+        -webkit-transform-style: preserve-3d;
 	}
+
 	/*大节字体颜色*/
 	.week-typeface{
 		color: #cfcfcf;
 	}
-    .coverage{
-        width: 100%;
-        height: 100%;
-        background: grey;
+    
+
+    /*手机横屏样式*/
+    /*动画旋转角度*/
+    @-webkit-keyframes rotation {
+        10% {
+            transform: rotate(90deg);
+            -webkit-transform: rotate(90deg)
+        }
+        50% {
+            transform: rotate(0);
+            -webkit-transform: rotate(0)
+        }
+        60% {
+            transform: rotate(0);
+            -webkit-transform: rotate(0)
+        }
+        90% {
+            transform: rotate(90deg);
+            -webkit-transform: rotate(90deg)
+        }
+        100% {
+            transform: rotate(90deg);
+            -webkit-transform: rotate(90deg)
+        }
+    }
+
+    /*横屏父级的样式高宽100% 背景颜色黑 定位 z-index最高*/
+    .mod-orient-layer {
         display: none;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: #000;
+        z-index: 999;
     }
-#canvas{
-     display: none;
-}
 
+    /*中间显示父级 定位居中*/
+    .mod-orient-layer__content {
+        position: absolute;
+        width: 100%;
+        top: 45%;
+        margin-top: -75px;
+        text-align: center
+    }
 
-
-
-
-
-
-@-webkit-keyframes rotation {
-    10% {
+    /*base64 的图片div样式 加上base64图片*/
+    .mod-orient-layer__icon-orient {
+        display: inline-block;/*行内块元素,不设的话偏移*/
+        width: 67px;
+        height: 109px;
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIYAAADaCAMAAABU68ovAAAAXVBMVEUAAAD29vb////x8fH////////x8fH5+fn29vby8vL////5+fn39/f6+vr////x8fH////////+/v7////09PT////x8fH39/f////////////////////x8fH///+WLTLGAAAAHXRSTlMAIpML+gb4ZhHWn1c2gvHBvq1uKJcC6k8b187lQ9yhhboAAAQYSURBVHja7d3blpowFIDhTUIAOchZDkre/zE7ycySrbUUpsRN2/1fzO18KzEqxEVgTiZNfgmmtxRc8iaR8HNe8x4BtjQePKayYCIoyBSgvNNE1AkNSHqZyLqk97EgUCCHBzZ5mkg7ScvIJuIyOyXBRFxgpqWZyGsAZLB1KjsJi8nutHU4JCRbFRH8tmirI9k8Jx2sqNs8K/m0LQkrktO2crgcgXGB4AiTEsB0hJfo9MGgX7CGcYiYwQxmMOOvZwRhBG8tCoMXjBDeXvWCEcHbi14wgCBmMIMZzGAGM5jxETNwzMAxA8cMHDNwzMAxA8cMHDNwzMAxA8cMHDNwzMAxY6E2rUQxnH2tz9cirlJFwFBJedaPnUv0M7++egPDE8iAJcIDmxwH5wwv9vUviw2kLbVO3TJU5uul/EyB0FoLp4x60PdGUd3qPurrWyjGGTc05u+1dcgI7/+tCCPARWGhH7o5Y7RCf+bH9ctXLp6v2BVDxfqz0oPXeSVaNtINo/1SXDv4dck8IIkbhtC2ol+iouEonTBCbYvVMnXOjxww6s/RFrBUpXHh/gw1rHj5d/qhYn9Gpk2FWh6xRBRX5Oj3Znh2Sq49/L6+y8pB26q9GbE2dbA2mVbx6I+7MfBglLCttm73ZQi7AD3iL4HqjFYJHSPRppqaUaJ3ATpGa+ckpGak2hRRMyqjGMkvl+xyFeSMwjAqcsZgGDdyhl0oNTnDN4yenJGZFGxNChP5/Y3efh6SM2rDOJMzboYxkDMqwyjIGcIw6F+io2FU1IxIm1JqRmgXSkvNKNCXeTpGrU0JNSO2c6LIGPgCS8AuDHz9ta0SXWDtxoDRH+MqlbC2Dt2G2JFRadtQZt2qq/orGowdGb2euxYiqWEpVWhTBnszoNAPdStuQwxqf0aocdWKW4Z+DfszIh8pxJqbuCE4YAC+4bm0evtipjpgJHeFnyyt1Ku2xa0bhjxr27p75rECNwyI9ZwvXkHq+7aTaMEV44YYy/spfgjgjNHaWW+GeUhGEX7tLlVinIFDDSgnOwhi1V6bU0b6tVS9eAERe863g4dRrtiHdc6o+nn5vtyVVgR79Cqt4uL6gfHPQyGqtP2vf7HADGbcYwaOGThm4JiBYwaOGThm4JiBYwaOGThm4JiBYwaOGThm4JiBYwaOGThm4JjhtOM+J/AgT008yDMkN/dPP9hzS8zAMQN3OEYeekp5YU7KOKXwVXqiY+QS7smcinGKABWdiBgpPJTSMHJ4KidhhPBUSMLw4CmPhKHgKUXCkHsygum71ftNSgCX6bsl8FQyfbcL5EdYsDk0R3j7aiA5wpt5AjKg/2gLJEBD/0Hf2OOf/vRrj6z/7GtP4B3nMKyjHA12kIPSjnJs3FEO0TvKkYJHOWCR+rjJH0Vn6fI5PjNbAAAAAElFTkSuQmCC');
         transform: rotate(90deg);
-        -webkit-transform: rotate(90deg)
+        -webkit-transform: rotate(90deg);
+        -webkit-animation: rotation infinite 1.5s ease-in-out;
+        animation: rotation infinite 1.5s ease-in-out;
+        -webkit-background-size: 67px;
+        background-size: 67px
     }
-    50% {
-        transform: rotate(0);
-        -webkit-transform: rotate(0)
+
+    /*文字div 字体大小和颜色 外边距*/
+    .mod-orient-layer__desc {
+        margin-top: 20px;
+        font-size: 15px;
+        color: #fff
     }
-    60% {
-        transform: rotate(0);
-        -webkit-transform: rotate(0)
-    }
-    90% {
-        transform: rotate(90deg);
-        -webkit-transform: rotate(90deg)
-    }
-    100% {
-        transform: rotate(90deg);
-        -webkit-transform: rotate(90deg)
-    }
-}
-
-.mod-orient-layer {
-    display: none;
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background: #000;
-    z-index: 9997
-}
-
-.mod-orient-layer__content {
-    position: absolute;
-    width: 100%;
-    top: 45%;
-    margin-top: -75px;
-    text-align: center
-}
-
-.mod-orient-layer__icon-orient {
-    display: inline-block;
-    width: 67px;
-    height: 109px;
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIYAAADaCAMAAABU68ovAAAAXVBMVEUAAAD29vb////x8fH////////x8fH5+fn29vby8vL////5+fn39/f6+vr////x8fH////////+/v7////09PT////x8fH39/f////////////////////x8fH///+WLTLGAAAAHXRSTlMAIpML+gb4ZhHWn1c2gvHBvq1uKJcC6k8b187lQ9yhhboAAAQYSURBVHja7d3blpowFIDhTUIAOchZDkre/zE7ycySrbUUpsRN2/1fzO18KzEqxEVgTiZNfgmmtxRc8iaR8HNe8x4BtjQePKayYCIoyBSgvNNE1AkNSHqZyLqk97EgUCCHBzZ5mkg7ScvIJuIyOyXBRFxgpqWZyGsAZLB1KjsJi8nutHU4JCRbFRH8tmirI9k8Jx2sqNs8K/m0LQkrktO2crgcgXGB4AiTEsB0hJfo9MGgX7CGcYiYwQxmMOOvZwRhBG8tCoMXjBDeXvWCEcHbi14wgCBmMIMZzGAGM5jxETNwzMAxA8cMHDNwzMAxA8cMHDNwzMAxA8cMHDNwzMAxY6E2rUQxnH2tz9cirlJFwFBJedaPnUv0M7++egPDE8iAJcIDmxwH5wwv9vUviw2kLbVO3TJU5uul/EyB0FoLp4x60PdGUd3qPurrWyjGGTc05u+1dcgI7/+tCCPARWGhH7o5Y7RCf+bH9ctXLp6v2BVDxfqz0oPXeSVaNtINo/1SXDv4dck8IIkbhtC2ol+iouEonTBCbYvVMnXOjxww6s/RFrBUpXHh/gw1rHj5d/qhYn9Gpk2FWh6xRBRX5Oj3Znh2Sq49/L6+y8pB26q9GbE2dbA2mVbx6I+7MfBglLCttm73ZQi7AD3iL4HqjFYJHSPRppqaUaJ3ATpGa+ckpGak2hRRMyqjGMkvl+xyFeSMwjAqcsZgGDdyhl0oNTnDN4yenJGZFGxNChP5/Y3efh6SM2rDOJMzboYxkDMqwyjIGcIw6F+io2FU1IxIm1JqRmgXSkvNKNCXeTpGrU0JNSO2c6LIGPgCS8AuDHz9ta0SXWDtxoDRH+MqlbC2Dt2G2JFRadtQZt2qq/orGowdGb2euxYiqWEpVWhTBnszoNAPdStuQwxqf0aocdWKW4Z+DfszIh8pxJqbuCE4YAC+4bm0evtipjpgJHeFnyyt1Ku2xa0bhjxr27p75rECNwyI9ZwvXkHq+7aTaMEV44YYy/spfgjgjNHaWW+GeUhGEX7tLlVinIFDDSgnOwhi1V6bU0b6tVS9eAERe863g4dRrtiHdc6o+nn5vtyVVgR79Cqt4uL6gfHPQyGqtP2vf7HADGbcYwaOGThm4JiBYwaOGThm4JiBYwaOGThm4JiBYwaOGThm4JiBYwaOGThm4JjhtOM+J/AgT008yDMkN/dPP9hzS8zAMQN3OEYeekp5YU7KOKXwVXqiY+QS7smcinGKABWdiBgpPJTSMHJ4KidhhPBUSMLw4CmPhKHgKUXCkHsygum71ftNSgCX6bsl8FQyfbcL5EdYsDk0R3j7aiA5wpt5AjKg/2gLJEBD/0Hf2OOf/vRrj6z/7GtP4B3nMKyjHA12kIPSjnJs3FEO0TvKkYJHOWCR+rjJH0Vn6fI5PjNbAAAAAElFTkSuQmCC');
-    transform: rotate(90deg);
-    -webkit-transform: rotate(90deg);
-    -webkit-animation: rotation infinite 1.5s ease-in-out;
-    animation: rotation infinite 1.5s ease-in-out;
-    -webkit-background-size: 67px;
-    background-size: 67px
-}
-
-.mod-orient-layer__desc {
-    margin-top: 20px;
-    font-size: 15px;
-    color: #fff
-}
-
-.mod-orient-layer__desc {
-    margin-top: 20px;
-    font-size: 15px;
-    color: #fff
-}
 </style>
-<div id="orientLayer" class="mod-orient-layer" style="display: block;">
-    <div class="mod-orient-layer__content">
-        <i class="icon mod-orient-layer__icon-orient"></i>
 
-        <div class="mod-orient-layer__desc">为了更好的体验，请使用竖屏浏览</div>
+<body class="lod">
+
+    <!-- 横屏使用的标签 -->
+    <div id="orientLayer" class="mod-orient-layer" ">
+        <div class="mod-orient-layer__content">
+            <div class="icon mod-orient-layer__icon-orient"></div>
+
+            <div class="mod-orient-layer__desc">为了更好的体验，请使用竖屏浏览</div>
+        </div>
     </div>
-</div>
-<!-- <body id="orientLayer"> -->
-<!-- <div class="coverage"></div> -->
-<canvas id="canvas"></canvas>
-<!-- 总布局说明 分两个表格两表高度用js根据获取可视窗口来赋值 左右各自浮动 左表格固定数据不能移动 右表格固定宽度里面超出隐藏一整个星期的签到表格 -->
+
+
+    <!-- 总布局说明 分两个表格两表高度用js根据获取可视窗口来赋值 左右各自浮动 左表格固定数据不能移动 右表格固定宽度里面超出隐藏一整个星期的签到表格 -->
 
 	<!-- 左边固定表格 -->
     <table class="sign-table sign-left">
     	<tr class="sign-top">
     		<td colspan="2" >第十七周</td>
-    		
     	</tr>
     	<tr>
     		<td rowspan="4">上午</td>
     		<td>第1节</td>
-    		
     	</tr>
     	<tr>
     		<td>第2节</td>
@@ -216,14 +200,12 @@ user-select:none;
 		<tr>
     		<td rowspan="4">下午</td>
     		<td>第5节</td>
-    		
     	</tr>
     	<tr>
     		<td>第6节</td>
     	</tr>
     	<tr>
           <td>第7节</td>
-         
         </tr>
         <tr>
         	<td>第8节</td>
@@ -231,7 +213,6 @@ user-select:none;
         <tr>
     		<td rowspan="4">晚上</td>
     		<td>第9节</td>
-    		
     	</tr>
     	<tr>
     		<td>第10节</td>
@@ -243,7 +224,6 @@ user-select:none;
         <tr>
         	<td>第12节</td>
         </tr>
-
     </table>
 
 	<!-- 右边滑动查看模块 -->
@@ -297,8 +277,6 @@ user-select:none;
     			<td >第二大节上课</td>
     			<td >第二大节下课</td>
 	    	</tr>
-	    	
-			
 			<tr class="week-typeface" rowspan="2">
 	    		<td >第三大节上课</td>
     			<td >第三大节下课</td>
@@ -365,187 +343,172 @@ user-select:none;
 	        </tr>
 	    </table>	
 	</div>
+</body>
+    <script>
 
-<script type="text/javascript" src="jquery-3.0.0.min.js"></script>
-<script>
-            // loaded完js再显示
-             var lod = document.querySelector("#orientLayer")
-        
-            lod.style.display="block";
+        // 定义显示总父级 
+        var lod = document.querySelector(".lod");
+        // 横屏模块的父级
+        var orientLayer = document.getElementById("orientLayer");
+        // 获取左右表格公用类名 用来赋值表格总高度 
+        var signTable = document.querySelectorAll(".sign-table");
+        // 包围右表格的div父级
+        var weekWrap = document.querySelector(".week-wrap");
+        // 右表格的标题
+        var weekTop = document.querySelector(".week-top");
+        // 左表格的标题
+        var signTop = document.querySelector(".sign-top");
+        // 右表格的父级
+        var signRight = document.querySelector(".sign-right");
+        // 左表格的父级
+        var signLeft = document.querySelector(".sign-left");
+        // 定义td除标题以外的td,也就是内容部分的td
+        var weekTypeface = document.querySelectorAll(".week-typeface td");
+        // 添加日期的p标签
+        var dates = document.querySelectorAll(".dates")
+        // 右边表格宽全局
+        var weekW = 0;
+        // 获取当天星期用的数组
+        var a = new Array("7", "1", "2", "3", "4", "5", "6");
+        // 上行数组的下标全局
+        var week = 0;
 
+        var left = 0;
 
-
-var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext("2d");
-var cw = document.documentElement.clientWidth;
-var ch = document.documentElement.clientHeight;
-canvas.width = cw;
-canvas.height = ch;
-var bc = 120,bcsd = 5,bw = 2,bwsd = 0.4,fh = 300,fs = 12;
-var arr = [];
-var texts = "oiwhqiohdiuwgqhf".split("");
-var lk = Math.ceil(cw/fs);
-for (var i = 0; i < lk; i++) {
-    arr[i] = 1
-}
-function run(){
-    ctx.fillStyle = "rgba(0,24,0,0.08)";
-    ctx.fillRect(0,0,cw,ch);
-    ctx.fillStyle = "green";
-    ctx.font = fs+"px Arial";
-    for (var i = 0; i < arr.length; i++) {
-        var text = texts[Math.floor(Math.random()*texts.length)];
-        ctx.fillText(text,i*fs,arr[i]*fs);
-        if (arr[i]>ch || Math.random()>0.95) {
-            arr[i] = 0;
+           // *算出当天星期几来定位刚打开网页的星期位置
+            var week = new Date().getDay();  // a[week]就是上面数组的下标 
+           
+     
+        if (index==-1) {
+            index=6;
         }
-        arr[i]++;
-    }
-    drawText()
-    window.onresize = function(){
-        cw = document.documentElement.clientWidth;
-        ch = document.documentElement.clientHeight;
-        canvas.width = cw;
-        canvas.height = ch;
-        lk = Math.ceil(cw/fs);
-        var lk = Math.ceil(cw/fs);
-        for (var i = 0; i < lk; i++) {
-            arr[i] = 1
+
+        // *运用none掉body然后loaded完js再显示,避免初始表格最小形态
+        lod.style.display="block";
+
+
+        // 窗口改变事件
+        window.onresize = function () {
+            change();// 改变窗口再次运行计算高宽
         }
-    }
-}
-function drawText(){
-    ctx.save();
-    ctx.fillStyle = "rgb(0,24,0)";
-    ctx.font = fh+"% Airal";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    bw+=bwsd;
-    ctx.shadowBlur = bw;
-    if (bw>=14) {
-        bwsd*=-1;
-    }else if(bw<=0){
-        bwsd*=-1;
-    }
-    bc+bcsd;
-    ctx.shadowColor = 'rgb('+bc+',0,0)';
-    if (bc>=255) {
-        bcsd*=-1;
-    }else if(bc<=115){
-        bcsd*=-1;
-    }
-    ctx.fillText("请竖屏观看",cw/2,ch/2)
-    ctx.font = fh+"% Airal";
-    // ctx.fillText("请竖屏观看！",cw/2,ch/2-45)
-    ctx.restore();
-}
-setInterval(run,40);
 
 
-
-
-
-
-var orientLayer = document.getElementById("orientLayer"); //判断横屏竖屏 
-function checkDirect() { if (document.documentElement.clientHeight >= document.documentElement.clientWidth) { return "portrait"; } else { return "landscape"; } } //显示屏幕方向提示浮层 
-function orientNotice() { var orient = checkDirect(); if (orient == "portrait") { orientLayer.style.display = "none"; } else { orientLayer.style.display = "block"; } } function init() { orientNotice(); window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", function () { setTimeout(orientNotice, 200); }) } init(); 
-
-
-
-
-
-// var coverage = document.querySelector(".coverage");
-// window.onorientationchange=function(){
-
-
-//     if(window.orientation==0){
-//             coverage.style.display='none';
-//         }else
-//         { 
-//             coverage.style.display='block';
-//                 // alert('请使用竖屏观看！111');
-               
-//         }
-// }; 
-
-            //防止移动端上下拖拉窗口
-            window.onload=test();//网页加载再执行
-            function test(){
-                 function stopDrop() {
-                    var lastY;//最后一次y坐标点
-                    var bd = document.body;
-                  document.addEventListener('touchstart', function(e) {
-                        lastY = e.touches[0].clientY;//点击屏幕时记录最后一次Y度坐标。
-                        e.preventDefault();
-                    });
-                   document.addEventListener('touchmove', function(e) {
-                        var y = e.touches[0].clientY;
-                        var st = document.documentElement.scrollTop; //滚动条高度  
-                        
-                        if (y >= lastY && st <= 10) {//如果滚动条高度小于0，可以理解为到顶了，且是下拉情况下，阻止touchmove事件。防止移动端下拖拉窗口
-                            lastY = y;
-                            e.preventDefault();
-                        }
-                        if (y <= lastY && st <= 10) {//防止移动端上拖拉窗口
-                            lastY = y;
-                            e.preventDefault();
-                        }
+           // *防止移动端上下拖拉窗口
+        window.onload=test();// 网页加载再执行
+        function test(){
+             function stopDrop() {
+                var lastY;// 最后一次y坐标点
+                var bd = document.body;
+              document.addEventListener('touchstart', function(e) {
+                    lastY = e.touches[0].clientY;// 点击屏幕时记录最后一次Y度坐标。
+                    e.preventDefault();
+                });
+               document.addEventListener('touchmove', function(e) {
+                    var y = e.touches[0].clientY;
+                    var st = document.documentElement.scrollTop; //滚动条高度  
+                    if (y >= lastY && st <= 10) {//如果滚动条高度小于0，可以理解为到顶了，且是下拉情况下，阻止touchmove事件。防止移动端下拖拉窗口
                         lastY = y;
-                    });
-                }
-                stopDrop();
+                        e.preventDefault();
+                    }
+                    if (y <= lastY && st <= 10) {//防止移动端上拖拉窗口
+                        lastY = y;
+                        e.preventDefault();
+                    }
+                    lastY = y;
+                });
             }
-			// 计算可视高度 赋值给表格
+            stopDrop();
+        }
+
+
+        // *横屏触发事件js
+        // 判断横屏竖屏 
+        function checkDirect(){ 
+            if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+                console.log("是手机")
+                 if (document.documentElement.clientHeight >= document.documentElement.clientWidth) { 
+                    console.log("竖屏")
+                return "portrait"; 
+                
+                }else { 
+                console.log("横屏")
+
+                    return "landscape"; 
+
+                }
+           
+            } 
+        }
+        //横屏时显示屏幕方向提示浮层 
+        function orientNotice(){ 
+            var orient = checkDirect(); 
+            if (orient == "portrait") { 
+                orientLayer.style.display = "none"; 
+            }else if (orient == "landscape"){ 
+                orientLayer.style.display = "block"; 
+        } } 
+        function init(){ 
+            orientNotice(); 
+            // 用orientationchange手机是否旋转
+            window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", 
+            function (){ 
+                setTimeout(orientNotice, 200); // 定时器
+            }) 
+        } 
+        init(); 
+
+
+
+  
+        // 首次打开网页运行计算高宽
+        change();
+        // 计算赋值高宽
+        function change(){
+            // *计算可视高度 赋值给表格
             var topPrice = document.documentElement.clientHeight-53;
-            var signTable = document.querySelectorAll(".sign-table");
-            var weekWrap = document.querySelector(".week-wrap")
             signTable[0].style.height=topPrice+"px";
             signTable[1].style.height=topPrice+"px";
             weekWrap.style.height=topPrice+"px";
-            // var  knobH= (document.documentElement.clientHeight-53-10-topPrice)/3;
-            // $(".sign-table").css("height",topPrice+"px");
-            // $(".week-wrap").css("height",topPrice+"px");
 
 
-            // 计算表格右第一栏的高度赋值给表格右第一栏的高度
-            var weekTop = document.querySelector(".week-top")
-            var signTop = document.querySelector(".sign-top")
+            // *计算表格右第一栏的高度赋值给表格右第一栏的高度
             var signTopH = signTop.offsetHeight;
             weekTop.style.height=signTopH+"px";
-            // $(".week-top").css("height",signTopH+"px");
 
-            // 计算右表格占据剩余宽度
-            // var weekWrap = document.querySelector(".week-wrap");
-            var signRight = document.querySelector(".sign-right")
-            var signLeft = document.querySelector(".sign-left");
-            var weekW = document.body.offsetWidth -signLeft.offsetWidth;
+
+            // *计算右表格占据剩余宽度
+            weekW = document.body.offsetWidth -signLeft.offsetWidth;
+            tw = weekW;
             weekWrap.style.width=weekW+"px";
-            signRight.style.width=weekW*7+"px";// 算右表格的总宽度
-            // $(".week-wrap").css("width",weekW+"px");
-			
+            signRight.style.width=weekW*7+"px";// 由于是七天七块*7,算右表格的总宽度
 
 
-
-            var a = new Array("7", "1", "2", "3", "4", "5", "6");  
-            var week = new Date().getDay();  
-            var str = "今天是星期"+ a[week]; 
-            // console.log(weekW*7,a[week],weekW*7*a[week])
-           signRight.style.transform = "translate3d("+weekW*(a[week]-1)*-1+"px,0px,0px)";
+            // *类名为week-typeface里的td的宽度为tr的一半 原因如果同一列的tr没有内容在里面的话会消失
+            for (var i = 0; i < weekTypeface.length; i++) {
+                weekTypeface[i].style.width=(weekW/2)-2+"px";// td宽度=tr宽度的一半再减去2(因为td的中间有边距2px)
+            }
 
 
+            // 当天星期的位置
+            signRight.style.transform = "translate3d("+weekW*(a[week]-1)*-1+"px,0px,0px)";
+            console.log(weekW)
 
 
-        var dates = document.querySelectorAll(".dates")
+            // 赋值left 拖拽用
+            left =weekW*(a[week]-1)*-1;// 由于把定位改为translate3d,获取offsetLeft一直为零,需要存贮定位left的值
+           
+        }
+
+
+        // *星期对应的日期
         window.onload = function(){         
-            // var cells = document.getElementById('monitor').getElementsByTagName('td');
             var clen = dates.length;
             var currentFirstDate;
             var formatDate = function(date){             
                 var year = date.getFullYear()+'年';
                 var month = (date.getMonth()+1)+'月';
                 var day = date.getDate()+'日';
-                var week = [date.getDay()];  
-
+                var week = [date.getDay()]; 
                 return year+month+day;
             };
             var addDate= function(date,n){       
@@ -556,13 +519,11 @@ function orientNotice() { var orient = checkDirect(); if (orient == "portrait") 
                 var week = date.getDay()-1;
                 date = addDate(date,week*-1);
                 currentFirstDate = new Date(date);
-
                 for(var i = 0;i<clen;i++){                 
                     dates[i].innerHTML = formatDate(i==0 ? date : addDate(date,1));
                 }                
             };
-
-            // 可以点击下一周             
+            // *点击可以算出下一周对应的日期             
             // document.getElementById('last-week').onclick = function(){
             //     setDate(addDate(currentFirstDate,-7));         
             // };             
@@ -572,52 +533,80 @@ function orientNotice() { var orient = checkDirect(); if (orient == "portrait") 
             setDate(new Date());
         }
 
+        // *拖拽移动事件
+        var movebol = true;
+        var timer = null;
+        var timerbol = false;
+        var cdx = 0;
+        var cx = 0;
+        var dx = 0;
+        var ddx = 0;
+        var tw = weekW;
+        var index = week;
+        signRight.addEventListener("touchstart",
+            function(e){
+            movebol = false;
+            cx = e.touches[0].clientX;
+            dx = cx - left;
+            signRight.style.transition = "all 0s";
+            signRight.style.webkitTransition = "all 0s";
+            clearTimeout(timer);
+            timerbol = true;
+            e.preventDefault();
+            return false;
+        });
+        window.addEventListener("touchmove",function(e){
+            console.log(weekW)
+            if(movebol){return}
+            var gx = e.touches[0].clientX;
+            left = gx - dx;
+            if(index==0&&gx-cx>0){
+                left *= 0.1
+            }
+            if(gx-cx<0&&index==6){
+                left =  left - (gx - cx) * 0.9;
+            }
+            signRight.style.transform = "translate3d("+left+"px,0px,0px)";
+            signRight.style.webkitTransform = "translate3d("+left+"px,0px,0px)";
+            cdx = e.touches[0].clientX - cx -ddx;
+            if(timerbol){
+                timer = setTimeout(function(){
+                        ddx = cdx;
+                        cdx = 0;
+                    timerbol = true;
+                },300)
+                timerbol = false;
+            }   
+        });
 
 
+        window.addEventListener("touchend",function(e){
+                clearTimeout(timer);
+                if(!movebol){
+                    if(cdx>30){
+                        index--;
+                        if(index<0){
+                            index = 0;
+                        }  
+                    }else if(cdx<-30){
+                        index++;
+                        if(index>6){
+                            index = 6;
+                        }
 
-
-			// 查看 移动事件
-            
-            var weekWrap = document.querySelector(".week-wrap")
-            var x = 0;
-            var y = 0;
-            var dx = 0;
-            var dy = 0;
-            var left =weekW*(a[week]-1)*-1;//由于把定位改为translate3d,获取offsetLeft一直为零,需要存贮定位left的值
-            var bol = false;//一开始设置bol = false;为了不让手指点击div以外地方触碰函数的发现
-            signRight.addEventListener("touchstart",function (e) {//手指开始触碰事件
-                dx = e.touches[0].clientX - left//由于把定位改为translate3d,获取offsetLeft一直为零,需要存贮定位left的值
-                bol = true;//当手开始触碰时bol = true;
-                e.preventDefault()
-                // console.log(dx)
-            })
-            signRight.addEventListener("touchmove",function(e){//记得用document来定义,表示全部的
-                var move = e.touches[0].clientX - dx;
-                if (!bol) {
-                    return;
+                    }else {
+                        index = -Math.round(left/tw);
+                    }
+                    ddx = 0;
+                    cdx = 0;
+                    left = -tw * index;
                 }
-                if (move>0) {//判断左边
-                    move = 0;
-                }else if (move<weekWrap.offsetWidth-signRight.offsetWidth) {//判断右边
-                    move = weekWrap.offsetWidth-signRight.offsetWidth;
-                }
-                // console.log(signRight.offsetLeft)
-                //移动位置
-                    signRight.style.transform = "translate3d("+move+"px,0px,0px)";
-                    left=move;//由于把定位改为translate3d,获取offsetLeft一直为零,需要存贮定位left的值
-                
-                
-            })
-           
+                signRight.style.transition = "all 0.8s";
+                signRight.style.webkitTransition = "all 0.8s";
+                signRight.style.transform = "translate3d("+left+"px,0px,0px)";
+                signRight.style.webkitTransform = "translate3d("+left+"px,0px,0px)";
+                movebol = true;
+        })
 
-
-
-
-
-
-	
-	
-</script>
-
-</body>
+    </script>
 </html>
