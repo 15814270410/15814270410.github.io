@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="zn">
 <head>
-	<meta charset="UTF-8">
-	<title>我的缺勤</title>
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta charset="UTF-8">
+    <title>我的缺勤</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 </head>
 <!-- 算rem js -->
 <script type="text/javascript">
-	(function(html){
+    (function(html){
             change();
             function change(){
                 var w = html.clientWidth
@@ -20,7 +20,7 @@
         })(document.documentElement)
 </script>
 <style type="text/css">
-	/*重置样式*/
+    /*重置样式*/
     body,h1,h2,h3,h4,p,dl,dd,ul,ol,form,input,textarea,th,td,select{margin: 0;padding: 0;}
     em{font-style: normal;}
     img{border: none;vertical-align: top;}
@@ -34,65 +34,65 @@
    
     /*去除长按复制文字默认事件*/
     * {
-	    -webkit-touch-callout:none;
-	    -webkit-user-select:none;
-	    -khtml-user-select:none;
-	    -moz-user-select:none;
-	    -ms-user-select:none;
-	    user-select:none;
+        -webkit-touch-callout:none;
+        -webkit-user-select:none;
+        -khtml-user-select:none;
+        -moz-user-select:none;
+        -ms-user-select:none;
+        user-select:none;
     }
     /*页面统一字体大小*/
      body,html{
-		font-size: .2rem;
+        font-size: .2rem;
     }
     /*父级宽度100%*/
     .absenteeism-wrap{
-    	width: 100%;
+        width: 100%;
     }
     /*标题字体*/
     .absenteeism-top{
-		font-size: .3rem;
-		
+        font-size: .3rem;
+        
     }
     /*td背景颜色*/
     .absenteeism-wrap td{
-		text-align: center;
-		background: #f8f8f8;
-		-moz-border-radius: .1rem; 
-		-webkit-border-radius: .1rem;
-	}
-	/*第二个td字体颜色*/
-	.absenteeism-typeface td:nth-child(2){
-	   color: #cfcfcf;
-	}
+        text-align: center;
+        background: #f8f8f8;
+        -moz-border-radius: .1rem; 
+        -webkit-border-radius: .1rem;
+    }
+    /*第二个td字体颜色*/
+    .absenteeism-typeface td:nth-child(2){
+       color: #cfcfcf;
+    }
 
 </style>
 <body>
-	<table class="absenteeism-wrap">
-		<tr class="absenteeism-top">
-			<td colspan="2">我的缺勤记录</td>
-		</tr>
-		<tr class="absenteeism-typeface" rowspan="2"> 
-			<td>请假</td>
-			<td>0</td>
-		</tr>
-		<tr class="absenteeism-typeface" rowspan="2"> 
-			<td>迟到</td>
-			<td>0</td>
-		</tr>
-		<tr class="absenteeism-typeface" rowspan="2"> 
-			<td>早退</td>
-			<td>0</td>
-		</tr>
-		<tr class="absenteeism-typeface" rowspan="2"> 
-			<td>旷课</td>
-			<td>0</td>
-		</tr>
-	</table>
+    <table class="absenteeism-wrap">
+        <tr class="absenteeism-top">
+            <td colspan="2">我的缺勤记录</td>
+        </tr>
+        <tr class="absenteeism-typeface" rowspan="2"> 
+            <td>请假</td>
+            <td>0</td>
+        </tr>
+        <tr class="absenteeism-typeface" rowspan="2"> 
+            <td>迟到</td>
+            <td>0</td>
+        </tr>
+        <tr class="absenteeism-typeface" rowspan="2"> 
+            <td>早退</td>
+            <td>0</td>
+        </tr>
+        <tr class="absenteeism-typeface" rowspan="2"> 
+            <td>旷课</td>
+            <td>0</td>
+        </tr>
+    </table>
 </body>
 <script type="text/javascript">
 
-	// *防止移动端上下拖拉窗口
+    // *防止移动端上下拖拉窗口
     window.onload=test();// 网页加载再执行
     function test(){
          function stopDrop() {
@@ -130,23 +130,23 @@
 
 
     // 窗口改变事件
-	window.onresize = function () {
-    	change();// 改变窗口再次运行计算高宽
+    window.onresize = function () {
+        change();// 改变窗口再次运行计算高宽
     }
 
 
-	// 首次打开网页运行计算高宽
+    // 首次打开网页运行计算高宽
     change();
-	// 窗口改变事件
+    // 窗口改变事件
     function change(){
-    	// *计算可视高度 赋值给表格 减去53是底部切换的固定高度
-    	var contentH = document.documentElement.clientHeight-53;
-	    absenteeismWrap.style.height=contentH+"px";
+        // *计算可视高度 赋值给表格 减去53是底部切换的固定高度
+        var contentH = document.documentElement.clientHeight-53;
+        absenteeismWrap.style.height=contentH+"px";
 
- 		// *类名为week-typeface里的td的宽度为tr的一半 原因如果同一列的tr没有内容在里面的话会消失
-	    for (var i = 0; i < absenteeismTypeface.length; i++) {
-	        absenteeismTypeface[i].style.width=(absenteeismW/2)-2+"px";// td宽度=tr宽度的一半再减去2(因为td的中间有边距2px)
-	    }
+        // *类名为week-typeface里的td的宽度为tr的一半 原因如果同一列的tr没有内容在里面的话会消失
+        for (var i = 0; i < absenteeismTypeface.length; i++) {
+            absenteeismTypeface[i].style.width=(absenteeismW/2)-2+"px";// td宽度=tr宽度的一半再减去2(因为td的中间有边距2px)
+        }
     }
     
 

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>考勤记录</title>
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta charset="UTF-8">
+    <title>考勤记录</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 </head>
 <!-- 算rem js -->
 <script type="text/javascript">
-	(function(html){
+    (function(html){
             change()
             function change(){
                 var w = html.clientWidth
@@ -45,28 +45,29 @@
         display: none;
     }
 
-	/*左右表格的统一颜色,圆角和居中*/
-	.sign-table td{
-		text-align: center;
-		background: #f8f8f8;
-		-moz-border-radius: .1rem; 
-		-webkit-border-radius: .1rem;
-	}
-	/*左表格浮到左边*/
-	.sign-left{
-		width: 1rem;
-		float: left;
-	}
+    /*左右表格的统一颜色,圆角和居中*/
+    .sign-table td{
+        text-align: center;
+        background: #f8f8f8;
+        -moz-border-radius: .1rem; 
+        -webkit-border-radius: .1rem;
+        position: relative;
+    }
+    /*左表格浮到左边*/
+    .sign-left{
+        width: 1rem;
+        float: left;
+    }
 
-	/*包围右表格的父级 浮到右边 固定宽度超出隐藏*/
-	.week-wrap{
-		-moz-border-radius: .1rem; 
-		-webkit-border-radius: .1rem;
-		position: relative;
-		float: right;
-		width: 2.69rem;
-		overflow: hidden;
-	}
+    /*包围右表格的父级 浮到右边 固定宽度超出隐藏*/
+    .week-wrap{
+        -moz-border-radius: .1rem; 
+        -webkit-border-radius: .1rem;
+        position: relative;
+        float: right;
+        width: 2.69rem;
+        overflow: hidden;
+    }
 
     /*左表日期样式*/
     .dates{
@@ -76,21 +77,41 @@
         margin-bottom: -.05rem;
     }
 
-	/*右表格总长和定位*/
-	.sign-right{
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 19rem;
+    /*右表格总长和定位*/
+    .sign-right{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 19rem;
         /*设置成3d容器解决兼容问题*/
         transform-style: preserve-3d;
         -webkit-transform-style: preserve-3d;
-	}
+    }
 
-	/*大节字体颜色*/
-	.week-typeface{
-		color: #cfcfcf;
-	}
+    /*大节字体颜色*/
+    .week-typeface{
+        color: #cfcfcf;
+    }
+    .signImg{ 
+        width: .3rem;
+        height: .2rem;
+        display: inline-block;
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAACzklEQVRoQ+1Y23HaQBS9F9Aif4UOAhXE7gBmgn5DByYVJKkguALoAFKBnV/wjHAFNhVACfgLIcm6nkUSoxBpd4UkI2bQ72rvnrPn3IeEcOYPnjl+uBA4tYIXBS4KZLyB0luIPbKe/dV+SOJZWgIceMXDISItNl27dz4ETGjoDhsiYp+DJqA7q2sPzoKAbkITHXYPiNch4LMhoE216xqiCYCN6G0TvHWsrjsvtQJJ4H0LlZyACHzpCcjAl5rALmFd9nzo+UOvl9NCJjSuHGZGq01SkpaSgD5l47DOyyaJ0pVRfar1EStjGfD9OtHLxrBvSlFGVZI2DijVti2rA6u4tQ+dha6m7FnF9/suTPDkVWhUimFOn7EBAv5Wsw69viH0RcDDONkUMKGhOVrTMZwXETC/ZNaXSuCJFqTZvSTLHMY4mkA47vKAlrFtCQnM6iYCtGUEiOiPpdk/oQNr2btHK8BvE9z6OAqIyPtuGc4k7lBOtEp4LwO0A2/YuxE6zaOuAJ/TXfYDAf+bzYlglaSCPq0vEaEpAnUseB5TiYD+qN2CVxmIgHgAv7bd7SgKVCVxs4CXEuB1u4qVoYp/AWi9qdmtvX/5uOCypWjWyQpeTMAHMAHAb6qejLZ92e3nAV6qAH8hmBpHakQCFQBAfPv0V/ShrnphSgTCYPqs1gaoThDgszAhge78wAlNi2ix0ex2mlIpOk8pifcB/D8GI0S8Fd8SreO9T6+bmt3MC3wqBf6pLmknymCzS96NrGunsc/RBPjGYLKcA+AnlUNFzU5lf9I76Sx0ECX4j/MAiF+KalQycpkI7IL7n4fzRBI5J+0hoewEJCSK8H2URD4EEkjEjRcyS6Rdz49ASMJlK57YRPBkGVvpCJ0WcDEWikQNq5NL1M67ZMaRzVeB8AQTGnk2q/w6cVa9C9hfjAIFAC2kkX0gzsSjLgqcWoWLAqdW4B1lKUFAHySKZQAAAABJRU5ErkJggg==");
+        background-repeat:no-repeat;
+        background-position:center center;
+        background-size:100%;
+        margin: -.08rem 0;
+        position: absolute;
+        top: .25rem;
+        left: .53rem;
+
+    }
+    .signTime{
+        position: absolute;
+        left: .53rem;
+        top: .39rem;
+
+    }
     
 
     /*手机横屏样式*/
@@ -166,7 +187,7 @@
 <body class="lod">
 
     <!-- 横屏使用的标签 -->
-    <div id="orientLayer" class="mod-orient-layer" ">
+    <div id="orientLayer" class="mod-orient-layer">
         <div class="mod-orient-layer__content">
             <div class="icon mod-orient-layer__icon-orient"></div>
 
@@ -177,172 +198,176 @@
 
     <!-- 总布局说明 分两个表格两表高度用js根据获取可视窗口来赋值 左右各自浮动 左表格固定数据不能移动 右表格固定宽度里面超出隐藏一整个星期的签到表格 -->
 
-	<!-- 左边固定表格 -->
+    <!-- 左边固定表格 -->
     <table class="sign-table sign-left">
-    	<tr class="sign-top">
-    		<td colspan="2" >第十七周</td>
-    	</tr>
-    	<tr>
-    		<td rowspan="4">上午</td>
-    		<td>第1节</td>
-    	</tr>
-    	<tr>
-    		<td>第2节</td>
-    	</tr>
-    	<tr>
-        	<td>第3节</td>
-        	
+        <tr class="sign-top">
+            <td colspan="2" >第十七周</td>
         </tr>
         <tr>
-        	<td>第4节</td>
+            <td rowspan="4">上午</td>
+            <td>第1节</td>
         </tr>
-		
-		<tr>
-    		<td rowspan="4">下午</td>
-    		<td>第5节</td>
-    	</tr>
-    	<tr>
-    		<td>第6节</td>
-    	</tr>
-    	<tr>
+        <tr>
+            <td>第2节</td>
+        </tr>
+        <tr>
+            <td>第3节</td>
+            
+        </tr>
+        <tr>
+            <td>第4节</td>
+        </tr>
+        
+        <tr>
+            <td rowspan="4">下午</td>
+            <td>第5节</td>
+        </tr>
+        <tr>
+            <td>第6节</td>
+        </tr>
+        <tr>
           <td>第7节</td>
         </tr>
         <tr>
-        	<td>第8节</td>
+            <td>第8节</td>
         </tr>
         <tr>
-    		<td rowspan="4">晚上</td>
-    		<td>第9节</td>
-    	</tr>
-    	<tr>
-    		<td>第10节</td>
-    	</tr>
-    	<tr>
+            <td rowspan="4">晚上</td>
+            <td>第9节</td>
+        </tr>
+        <tr>
+            <td>第10节</td>
+        </tr>
+        <tr>
           <td>第11节</td>
           
         </tr>
         <tr>
-        	<td>第12节</td>
+            <td>第12节</td>
         </tr>
     </table>
 
-	<!-- 右边滑动查看模块 -->
-	<div class="week-wrap">
-		<table class="sign-table sign-right">
-	    	<tr class="week-top">
-	    		<td colspan="2">星期一<p class="
+    <!-- 右边滑动查看模块 -->
+    <div class="week-wrap">
+        <table class="sign-table sign-right">
+            <tr class="week-top">
+                <td colspan="2">星期一<p class="
                 dates"></p></td>
-	    		<td colspan="2">星期二<p class="
+                <td colspan="2">星期二<p class="
                 dates"></p></td>
-	    		<td colspan="2">星期三<p class="
+                <td colspan="2">星期三<p class="
                 dates"></p></td>
-	    		<td colspan="2">星期四<p class="
+                <td colspan="2">星期四<p class="
                 dates"></p></td>
-	    		<td colspan="2">星期五<p class="
+                <td colspan="2">星期五<p class="
                 dates"></p></td>
-	    		<td colspan="2">星期六<p class="
+                <td colspan="2">星期六<p class="
                 dates"></p></td>
-	    		<td colspan="2">星期天<p class="
+                <td colspan="2">星期天<p class="
                 dates"></p></td>
-	    	</tr>
-	    	<tr class="week-typeface" rowspan="2">
-	    		<td >第一大节上课</td>
-    			<td >第一大节下课</td>
-	    		<td >第一大节上课</td>
-    			<td >第一大节下课</td>
-    			<td >第一大节上课</td>
-    			<td >第一大节下课</td>
-    			<td >第一大节上课</td>
-    			<td >第一大节下课</td>
-    			<td >第一大节上课</td>
-    			<td >第一大节下课</td>
-    			<td >第一大节上课</td>
-    			<td >第一大节下课</td>
-    			<td >第一大节上课</td>
-    			<td >第一大节下课</td>
-	    	</tr>
-	    	<tr class="week-typeface" rowspan="2">
-	    		<td >第二大节上课</td>
-    			<td >第二大节下课</td>
-    			<td >第二大节上课</td>
-    			<td >第二大节下课</td>
-    			<td >第二大节上课</td>
-    			<td >第二大节下课</td>
-    			<td >第二大节上课</td>
-    			<td >第二大节下课</td>
-    			<td >第二大节上课</td>
-    			<td >第二大节下课</td>
-    			<td >第二大节上课</td>
-    			<td >第二大节下课</td>
-    			<td >第二大节上课</td>
-    			<td >第二大节下课</td>
-	    	</tr>
-			<tr class="week-typeface" rowspan="2">
-	    		<td >第三大节上课</td>
-    			<td >第三大节下课</td>
-    			<td >第三大节上课</td>
-    			<td >第三大节下课</td>
-    			<td >第三大节上课</td>
-    			<td >第三大节下课</td>
-    			<td >第三大节上课</td>
-    			<td >第三大节下课</td>
-    			<td >第三大节上课</td>
-    			<td >第三大节下课</td>
-    			<td >第三大节上课</td>
-    			<td >第三大节下课</td>
-    			<td >第三大节上课</td>
-    			<td >第三大节下课</td>
-	    	</tr>
-	    	<tr class="week-typeface" rowspan="2">
-	    		<td >第四大节上课</td>
-    			<td >第四大节下课</td>
-    			<td >第四大节上课</td>
-    			<td >第四大节下课</td>
-    			<td >第四大节上课</td>
-    			<td >第四大节下课</td>
-    			<td >第四大节上课</td>
-    			<td >第四大节下课</td>
-    			<td >第四大节上课</td>
-    			<td >第四大节下课</td>
-    			<td >第四大节上课</td>
-    			<td >第四大节下课</td>
-    			<td >第四大节上课</td>
-    			<td >第四大节下课</td>
-	    	</tr>
-	    	<tr class="week-typeface" rowspan="2">
-	        	<td >第五大节上课</td>
-    			<td >第五大节下课</td>
-    			<td >第五大节上课</td>
-    			<td >第五大节下课</td>
-    			<td >第五大节上课</td>
-    			<td >第五大节下课</td>
-    			<td >第五大节上课</td>
-    			<td >第五大节下课</td>
-    			<td >第五大节上课</td>
-    			<td >第五大节下课</td>
-    			<td >第五大节上课</td>
-    			<td >第五大节下课</td>
-    			<td >第五大节上课</td>
-    			<td >第五大节下课</td>
-	        </tr>
-	        <tr class="week-typeface" rowspan="2">
-	        	<td >第六大节上课</td>
-    			<td >第六大节下课</td>
-    			<td >第六大节上课</td>
-    			<td >第六大节下课</td>
-    			<td >第六大节上课</td>
-    			<td >第六大节下课</td>
-    			<td >第六大节上课</td>
-    			<td >第六大节下课</td>
-    			<td >第六大节上课</td>
-    			<td >第六大节下课</td>
-    			<td >第六大节上课</td>
-    			<td >第六大节下课</td>
-    			<td >第六大节上课</td>
-    			<td >第六大节下课</td>
-	        </tr>
-	    </table>	
-	</div>
+            </tr>
+            <tr class="week-typeface" rowspan="2">
+                <td ><div class="signImg"></div>
+                <p class="signTime">8:00</p></td>
+                <td >第一大节下课</td>
+                <td >第一大节上课</td>
+                <td >第一大节下课</td>
+                <td >第一大节上课</td>
+                <td >第一大节下课</td>
+                <td >第一大节上课</td>
+                <td >第一大节下课</td>
+                <td >第一大节上课</td>
+                <td >第一大节下课</td>
+                <td >第一大节上课</td>
+                <td ><div class="signImg"></div>
+                <p class="signTime">8:00</p></td>
+                <td >第一大节上课</td>
+                <td >第一大节下课</td>
+            </tr>
+            <tr class="week-typeface" rowspan="2">
+                <td ><div class="signImg"></div>
+                <p class="signTime">10:00</p></td>
+                <td >第二大节下课</td>
+                <td >第二大节上课</td>
+                <td >第二大节下课</td>
+                <td >第二大节上课</td>
+                <td >第二大节下课</td>
+                <td >第二大节上课</td>
+                <td >第二大节下课</td>
+                <td >第二大节上课</td>
+                <td >第二大节下课</td>
+                <td >第二大节上课</td>
+                <td >第二大节下课</td>
+                <td >第二大节上课</td>
+                <td >第二大节下课</td>
+            </tr>
+            <tr class="week-typeface" rowspan="2">
+                <td >第三大节上课</td>
+                <td >第三大节下课</td>
+                <td >第三大节上课</td>
+                <td >第三大节下课</td>
+                <td >第三大节上课</td>
+                <td >第三大节下课</td>
+                <td >第三大节上课</td>
+                <td >第三大节下课</td>
+                <td >第三大节上课</td>
+                <td >第三大节下课</td>
+                <td >第三大节上课</td>
+                <td >第三大节下课</td>
+                <td >第三大节上课</td>
+                <td >第三大节下课</td>
+            </tr>
+            <tr class="week-typeface" rowspan="2">
+                <td ><div class="signImg"></div>
+                <p class="signTime">15:00</p></td>
+                <td >第四大节下课</td>
+                <td >第四大节上课</td>
+                <td >第四大节下课</td>
+                <td >第四大节上课</td>
+                <td >第四大节下课</td>
+                <td >第四大节上课</td>
+                <td >第四大节下课</td>
+                <td >第四大节上课</td>
+                <td >第四大节下课</td>
+                <td >第四大节上课</td>
+                <td >第四大节下课</td>
+                <td >第四大节上课</td>
+                <td >第四大节下课</td>
+            </tr>
+            <tr class="week-typeface" rowspan="2">
+                <td >第五大节上课</td>
+                <td >第五大节下课</td>
+                <td >第五大节上课</td>
+                <td >第五大节下课</td>
+                <td >第五大节上课</td>
+                <td >第五大节下课</td>
+                <td >第五大节上课</td>
+                <td >第五大节下课</td>
+                <td >第五大节上课</td>
+                <td >第五大节下课</td>
+                <td >第五大节上课</td>
+                <td >第五大节下课</td>
+                <td >第五大节上课</td>
+                <td >第五大节下课</td>
+            </tr>
+            <tr class="week-typeface" rowspan="2">
+                <td >第六大节上课</td>
+                <td >第六大节下课</td>
+                <td >第六大节上课</td>
+                <td >第六大节下课</td>
+                <td >第六大节上课</td>
+                <td >第六大节下课</td>
+                <td >第六大节上课</td>
+                <td >第六大节下课</td>
+                <td >第六大节上课</td>
+                <td >第六大节下课</td>
+                <td >第六大节上课</td>
+                <td >第六大节下课</td>
+                <td >第六大节上课</td>
+                <td >第六大节下课</td>
+            </tr>
+        </table>    
+    </div>
 </body>
     <script>
 
@@ -369,16 +394,15 @@
         // 右边表格宽全局
         var weekW = 0;
         // 获取当天星期用的数组
-        var a = new Array("7", "1", "2", "3", "4", "5", "6");
+        var a = new Array("1", "2", "3", "4", "5", "6","7");
         // 上行数组的下标全局
         var week = 0;
-
+        // 拖拽移动值全局
         var left = 0;
-
-           // *算出当天星期几来定位刚打开网页的星期位置
-            var week = new Date().getDay();  // a[week]就是上面数组的下标 
+        // *算出当天星期几来定位刚打开网页的星期位置
+        var week = new Date().getDay();  // a[week]就是上面数组的下标 
            
-     
+        // 拖拽防止index等于-1,等于-1时就变成6
         if (index==-1) {
             index=6;
         }
@@ -490,12 +514,12 @@
 
 
             // 当天星期的位置
-            signRight.style.transform = "translate3d("+weekW*(a[week]-1)*-1+"px,0px,0px)";
+            signRight.style.transform = "translate3d("+weekW*(a[week]-2)*-1+"px,0px,0px)";
             console.log(weekW)
 
 
             // 赋值left 拖拽用
-            left =weekW*(a[week]-1)*-1;// 由于把定位改为translate3d,获取offsetLeft一直为零,需要存贮定位left的值
+            left =weekW*(a[week]-2)*-1;// 由于把定位改为translate3d,获取offsetLeft一直为零,需要存贮定位left的值
            
         }
 
