@@ -269,13 +269,16 @@
             <tr class="week-typeface" rowspan="2">
                 <td ><div class="signImg"></div>
                 <p class="signTime">8:00</p></td>
-                <td >第一大节下课</td>
+                <td ><div class="signImg"></div>
+                <p class="signTime">15:00</p></td>
                 <td >第一大节上课</td>
                 <td >第一大节下课</td>
-                <td >第一大节上课</td>
+                <td ><div class="signImg"></div>
+                <p class="signTime">15:00</p></td>
                 <td >第一大节下课</td>
                 <td >第一大节上课</td>
-                <td >第一大节下课</td>
+                <td ><div class="signImg"></div>
+                <p class="signTime">15:00</p></td>
                 <td >第一大节上课</td>
                 <td >第一大节下课</td>
                 <td >第一大节上课</td>
@@ -289,11 +292,14 @@
                 <p class="signTime">10:00</p></td>
                 <td >第二大节下课</td>
                 <td >第二大节上课</td>
+                <td ><div class="signImg"></div>
+                <p class="signTime">15:00</p></td>
+                <td ><div class="signImg"></div>
+                <p class="signTime">15:00</p></td>
                 <td >第二大节下课</td>
                 <td >第二大节上课</td>
-                <td >第二大节下课</td>
-                <td >第二大节上课</td>
-                <td >第二大节下课</td>
+                <td ><div class="signImg"></div>
+                <p class="signTime">15:00</p></td>
                 <td >第二大节上课</td>
                 <td >第二大节下课</td>
                 <td >第二大节上课</td>
@@ -309,10 +315,13 @@
                 <td >第三大节上课</td>
                 <td >第三大节下课</td>
                 <td >第三大节上课</td>
+                <td ><div class="signImg"></div>
+                <p class="signTime">15:00</p></td>
+                <td ><div class="signImg"></div>
+                <p class="signTime">15:00</p></td>
                 <td >第三大节下课</td>
-                <td >第三大节上课</td>
-                <td >第三大节下课</td>
-                <td >第三大节上课</td>
+                <td ><div class="signImg"></div>
+                <p class="signTime">15:00</p></td>
                 <td >第三大节下课</td>
                 <td >第三大节上课</td>
                 <td >第三大节下课</td>
@@ -322,11 +331,13 @@
                 <p class="signTime">15:00</p></td>
                 <td >第四大节下课</td>
                 <td >第四大节上课</td>
-                <td >第四大节下课</td>
+                <td ><div class="signImg"></div>
+                <p class="signTime">15:00</p></td>
                 <td >第四大节上课</td>
                 <td >第四大节下课</td>
                 <td >第四大节上课</td>
-                <td >第四大节下课</td>
+                <td ><div class="signImg"></div>
+                <p class="signTime">15:00</p></td>
                 <td >第四大节上课</td>
                 <td >第四大节下课</td>
                 <td >第四大节上课</td>
@@ -339,22 +350,29 @@
                 <td >第五大节下课</td>
                 <td >第五大节上课</td>
                 <td >第五大节下课</td>
-                <td >第五大节上课</td>
+                <td ><div class="signImg"></div>
+                <p class="signTime">15:00</p></td>
                 <td >第五大节下课</td>
-                <td >第五大节上课</td>
+                <td ><div class="signImg"></div>
+                <p class="signTime">15:00</p></td>
                 <td >第五大节下课</td>
-                <td >第五大节上课</td>
+                <td ><div class="signImg"></div>
+                <p class="signTime">15:00</p></td>
                 <td >第五大节下课</td>
-                <td >第五大节上课</td>
+                <td ><div class="signImg"></div>
+                <p class="signTime">15:00</p></td>
                 <td >第五大节下课</td>
                 <td >第五大节上课</td>
                 <td >第五大节下课</td>
             </tr>
             <tr class="week-typeface" rowspan="2">
                 <td >第六大节上课</td>
-                <td >第六大节下课</td>
-                <td >第六大节上课</td>
-                <td >第六大节下课</td>
+                <td ><div class="signImg"></div>
+                <p class="signTime">15:00</p></td>
+                <td ><div class="signImg"></div>
+                <p class="signTime">15:00</p></td>
+                <td ><div class="signImg"></div>
+                <p class="signTime">15:00</p></td>
                 <td >第六大节上课</td>
                 <td >第六大节下课</td>
                 <td >第六大节上课</td>
@@ -523,9 +541,9 @@
            
         }
 
-
+        loadData()
         // *星期对应的日期
-        window.onload = function(){         
+        function loadData(){         
             var clen = dates.length;
             var currentFirstDate;
             var formatDate = function(date){             
