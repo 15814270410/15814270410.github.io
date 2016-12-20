@@ -414,11 +414,11 @@
         // 获取当天星期用的数组
         var a = new Array("1", "2", "3", "4", "5", "6","7");
         // 上行数组的下标全局
-        var week = 0;
+       
         // 拖拽移动值全局
         var left = 0;
         // *算出当天星期几来定位刚打开网页的星期位置
-        var week = new Date().getDay();  // a[week]就是上面数组的下标 
+        var index = new Date().getDay() -1;  // a[week]就是上面数组的下标 
            
         // 拖拽防止index等于-1,等于-1时就变成6
         if (index==-1) {
@@ -529,15 +529,16 @@
             for (var i = 0; i < weekTypeface.length; i++) {
                 weekTypeface[i].style.width=(weekW/2)-2+"px";// td宽度=tr宽度的一半再减去2(因为td的中间有边距2px)
             }
-
+            // 赋值left 拖拽用
+            console.log(index)
+            left =-weekW*index;// 由于把定位改为translate3d,获取offsetLeft一直为零,需要存贮定位left的值
 
             // 当天星期的位置
-            signRight.style.transform = "translate3d("+weekW*(a[week]-2)*-1+"px,0px,0px)";
+            signRight.style.transform = "translate3d("+left+"px,0px,0px)";
             console.log(weekW)
 
 
-            // 赋值left 拖拽用
-            left =weekW*(a[week]-1)*-1;// 由于把定位改为translate3d,获取offsetLeft一直为零,需要存贮定位left的值
+            
            
         }
 
@@ -584,7 +585,7 @@
         var dx = 0;
         var ddx = 0;
         var tw = weekW;
-        var index = week;
+        // var index = week;
         signRight.addEventListener("touchstart",
             function(e){
             movebol = false;
